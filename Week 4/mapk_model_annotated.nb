@@ -1,0 +1,373 @@
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[         0,          0]
+NotebookDataLength[     13398,        372]
+NotebookOptionsPosition[     10186,        304]
+NotebookOutlinePosition[     10581,        320]
+CellTagsIndexPosition[     10538,        317]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[StyleBox["MAPK model (Kholodenko, BN, Sustained oscillations in \
+MAPK cascades, European Journal of Biochemistry, 267, 1583-1588, 2000)",
+ FontSize->16]], "Title",
+ CellChangeTimes->{{3.503744352085557*^9, 
+  3.503744439314004*^9}},ExpressionUUID->"075be653-2bea-4468-8f81-\
+7b990365ad80"],
+
+Cell[TextData[{
+ StyleBox["This is probably the first mathematica file that you see with a \
+dynamic model of a molecular reaction network.  We will step by step explain \
+the mathematica code for model specification and the computation of the \
+dynamics.  We will make extensive of text and input cells, so you need to \
+have looked at the ",
+  FontSize->16],
+ StyleBox["Mathematica",
+  FontSize->16,
+  FontSlant->"Italic"],
+ StyleBox[" introduction file before you can work comfortably with this \
+notebook.  (Throughout this notebook be aware of the different meanings of \
+\[OpenCurlyQuote]=\[CloseCurlyQuote],\[CloseCurlyQuote]==\[CloseCurlyQuote], \
+and \[OpenCurlyQuote]",
+  FontSize->16],
+ "\[RightArrow]",
+ StyleBox["\[CloseCurlyQuote].)",
+  FontSize->16]
+}], "Text",
+ CellChangeTimes->{{3.503744595548073*^9, 3.503744737387463*^9}, {
+  3.503744895713133*^9, 
+  3.503744937480146*^9}},ExpressionUUID->"f04faa85-7fbd-48a2-a430-\
+13096408d1f4"],
+
+Cell[CellGroupData[{
+
+Cell["Kinetic model specification", "Section",
+ CellChangeTimes->{{3.503744476412849*^9, 
+  3.503744488369334*^9}},ExpressionUUID->"eb91e098-d08e-4857-83ff-\
+2149fa4163bb"],
+
+Cell[CellGroupData[{
+
+Cell["Mass balances", "Subsection",
+ CellChangeTimes->{{3.503744496354639*^9, 3.503744498240552*^9}, 
+   3.5037445788264*^9, {3.503744750475091*^9, 
+   3.503744840001688*^9}},ExpressionUUID->"ced80015-23a2-45eb-84be-\
+0b9d5e067c4f"],
+
+Cell[TextData[{
+ StyleBox["For every variable intermediate in the molecular reaction network \
+we have a mass balance (an ordinary differential equation) that accounts for \
+the rate of change in the concentration of a signaling intermediate given \
+rates for production and consumption. ",
+  FontSize->16],
+ Cell[BoxData[
+  FormBox[
+   FractionBox["dx", "dt"], TraditionalForm]],
+  FontSize->16,ExpressionUUID->"5d6cf3d3-cccd-4bc3-8588-cfc48a6b58da"],
+ StyleBox["is denoted by ",
+  FontSize->16],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     RowBox[{"x", "'"}], "[", "t", "]"}],
+    FontSize->16], TraditionalForm]],ExpressionUUID->
+  "d3271f10-9e4f-452f-aee6-994992f0ac5f"],
+ StyleBox[" in ",
+  FontSize->16],
+ StyleBox["Mathematica.",
+  FontSize->16,
+  FontSlant->"Italic"],
+ StyleBox[" Note that a differential equation requires \[OpenCurlyQuote]==\
+\[CloseCurlyQuote] and not \[OpenCurlyQuote]=\[CloseCurlyQuote] but the \
+naming of the list with all the differential equations in it again requires \
+\[OpenCurlyQuote]=\[CloseCurlyQuote]!  ",
+  FontSize->16]
+}], "Text",
+ CellChangeTimes->{{3.503744842108097*^9, 3.5037448860944567`*^9}, {
+  3.503745025189028*^9, 
+  3.5037450952324247`*^9}},ExpressionUUID->"35260c03-5cea-4c8a-837b-\
+3170c2a5f884"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"massbalances", " ", "=", " ", 
+   RowBox[{"{", "\n", "   ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"raf", "'"}], "[", "t", "]"}], " ", "==", " ", 
+      RowBox[{"v2", " ", "-", " ", "v1"}]}], ",", "\n", "   ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"rafp", "'"}], "[", "t", "]"}], " ", "==", " ", 
+      RowBox[{"v1", " ", "-", " ", "v2"}]}], ",", "\n", "   ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"mek", "'"}], "[", "t", "]"}], " ", "==", " ", 
+      RowBox[{"v4", " ", "-", " ", "v3"}]}], ",", "\n", "   ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"mekp", "'"}], "[", "t", "]"}], " ", "==", " ", 
+      RowBox[{
+      "v3", " ", "-", " ", "v4", " ", "-", " ", "v5", " ", "+", " ", "v6"}]}],
+      ",", "\n", "   ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"mekpp", "'"}], "[", "t", "]"}], " ", "==", " ", 
+      RowBox[{"v5", " ", "-", " ", "v6"}]}], ",", "\n", "   ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"erk", "'"}], "[", "t", "]"}], " ", "==", " ", 
+      RowBox[{"v8", " ", "-", " ", "v7"}]}], ",", "\n", "   ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"erkp", "'"}], "[", "t", "]"}], " ", "==", " ", 
+      RowBox[{
+      "v7", " ", "-", " ", "v8", " ", "-", " ", "v9", " ", "+", " ", 
+       "v10"}]}], ",", "\n", "   ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"erkpp", "'"}], "[", "t", "]"}], " ", "==", " ", 
+      RowBox[{"v9", " ", "-", " ", "v10"}]}]}], "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.503744457302153*^9, 
+  3.5037444669221582`*^9}},ExpressionUUID->"d85c51cc-69d8-4c32-98e6-\
+31f955c6f71d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Rate equations", "Subsection",
+ CellChangeTimes->{{3.50374451750049*^9, 3.50374451973772*^9}, 
+   3.5037445747618504`*^9},ExpressionUUID->"565ed88b-fa5a-479a-90b7-\
+b06fa9611646"],
+
+Cell[TextData[{
+ StyleBox["Rate equations express the rate of a reactions in terms of kinetic \
+parameters and concentrations of reactants and effectors. Note that this is a \
+substitution rule and requires usage of \[OpenCurlyQuote]",
+  FontSize->16],
+ "\[LongRightArrow]",
+ StyleBox["\[CloseCurlyQuote] to make sure that v1 is not linked to its rate \
+equation throughout the notebook.",
+  FontSize->16]
+}], "Text",
+ CellChangeTimes->{{3.5037451156817713`*^9, 
+  3.503745212648925*^9}},ExpressionUUID->"1bc96a71-0a63-43be-b0ac-\
+45b0792b71d4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"rateequations", "=", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"v1", "\[Rule]", 
+       RowBox[{
+        FractionBox["V1", 
+         RowBox[{"1", "+", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            FractionBox[
+             RowBox[{"erkpp", "[", "t", "]"}], "Ki"], ")"}], "n"]}]], " ", 
+        FractionBox[
+         RowBox[{"raf", "[", "t", "]"}], 
+         RowBox[{"K1", "+", 
+          RowBox[{"raf", "[", "t", "]"}]}]]}]}], ",", 
+      RowBox[{"v2", "\[Rule]", 
+       RowBox[{"V2", " ", 
+        FractionBox[
+         RowBox[{"rafp", "[", "t", "]"}], 
+         RowBox[{"K2", "+", 
+          RowBox[{"rafp", "[", "t", "]"}]}]]}]}], ",", "\[IndentingNewLine]", 
+      
+      RowBox[{"v3", "\[Rule]", 
+       RowBox[{"k3", " ", 
+        RowBox[{"rafp", "[", "t", "]"}], " ", 
+        FractionBox[
+         RowBox[{"mek", "[", "t", "]"}], 
+         RowBox[{"K3", "+", 
+          RowBox[{"mek", "[", "t", "]"}]}]]}]}], ",", 
+      RowBox[{"v4", "\[Rule]", 
+       RowBox[{"V4", " ", 
+        FractionBox[
+         RowBox[{"mekp", "[", "t", "]"}], 
+         RowBox[{"K4", "+", 
+          RowBox[{"mekp", "[", "t", "]"}]}]]}]}], ",", 
+      RowBox[{"v5", "\[Rule]", 
+       RowBox[{"k5", " ", 
+        RowBox[{"rafp", "[", "t", "]"}], " ", 
+        FractionBox[
+         RowBox[{"mekp", "[", "t", "]"}], 
+         RowBox[{"K5", "+", 
+          RowBox[{"mekp", "[", "t", "]"}]}]]}]}], ",", 
+      RowBox[{"v6", "\[Rule]", 
+       RowBox[{"V6", " ", 
+        FractionBox[
+         RowBox[{"mekpp", "[", "t", "]"}], 
+         RowBox[{"K6", "+", 
+          RowBox[{"mekpp", "[", "t", "]"}]}]]}]}], ",", 
+      RowBox[{"v7", "\[Rule]", 
+       RowBox[{"k7", " ", 
+        RowBox[{"mekpp", "[", "t", "]"}], " ", 
+        FractionBox[
+         RowBox[{"erk", "[", "t", "]"}], 
+         RowBox[{"K7", "+", 
+          RowBox[{"erk", "[", "t", "]"}]}]]}]}], ",", 
+      RowBox[{"v8", "\[Rule]", 
+       RowBox[{"V8", " ", 
+        FractionBox[
+         RowBox[{"erkp", "[", "t", "]"}], 
+         RowBox[{"K8", "+", 
+          RowBox[{"erkp", "[", "t", "]"}]}]]}]}], ",", 
+      RowBox[{"v9", "\[Rule]", 
+       RowBox[{"k9", " ", 
+        RowBox[{"mekpp", "[", "t", "]"}], " ", 
+        FractionBox[
+         RowBox[{"erkp", "[", "t", "]"}], 
+         RowBox[{"K8", "+", 
+          RowBox[{"erkp", "[", "t", "]"}]}]]}]}], ",", 
+      RowBox[{"v10", "\[Rule]", 
+       RowBox[{"V10", " ", 
+        FractionBox[
+         RowBox[{"erkpp", "[", "t", "]"}], 
+         RowBox[{"K10", "+", 
+          RowBox[{"erkpp", "[", "t", "]"}]}]]}]}]}], "}"}]}], ";"}], 
+  "\n"}]], "Input",
+ CellChangeTimes->{
+  3.503744337807921*^9, {3.505624442378284*^9, 
+   3.5056244463583803`*^9}},ExpressionUUID->"e8836f89-dc93-4cf8-ac93-\
+532b2db5b82a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[, "Subsection",ExpressionUUID->"1d19d070-fba5-4d92-8681-313a625c225d"],
+
+Cell[, "Text",ExpressionUUID->"659a6e76-d6dc-4123-8b98-0ae6a43474da"],
+
+Cell[, "Input",ExpressionUUID->"d0c6c92c-8431-4c99-91fb-21beeb754c09"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[, "Subsection",ExpressionUUID->"c5ff4438-d897-4974-94ee-3f51c06f8501"],
+
+Cell[, "Text",ExpressionUUID->"7b2d64bc-7a78-4392-89a8-ebd6a27607e4"],
+
+Cell[, "Input",ExpressionUUID->"c8a29981-c436-44ca-99f2-97a1374a4ec5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[, "Subsection",ExpressionUUID->"e6551b01-824a-44ee-9e79-00b2f55109b7"],
+
+Cell[, "Text",ExpressionUUID->"e15c1403-5801-4afc-8942-dbcee6226bb7"],
+
+Cell[CellGroupData[{
+
+Cell[, "Input",ExpressionUUID->"5f3f982f-bff1-495d-b94b-709011f6b0b2"],
+
+Cell[, "Output",ExpressionUUID->"eda2dd23-447b-4b96-89ce-c7724a53f2cc"]
+}, Open  ]],
+
+Cell[, "Text",ExpressionUUID->"7a9171b0-2a88-4160-bc2a-8fabcabfbf34"],
+
+Cell[CellGroupData[{
+
+Cell[, "Input",ExpressionUUID->"87b6bbd5-c420-4cb1-938a-c29d57c1dd73"],
+
+Cell[, "Output",ExpressionUUID->"58ba5a67-db2b-43c0-831c-c9413b0f3950"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[, "Subsection",ExpressionUUID->"b11bce03-ce76-4cee-a17f-62a73cff6391"],
+
+Cell[, "Text",ExpressionUUID->"851d0679-e529-4ab8-a94d-a55f5e9631b0"],
+
+Cell[CellGroupData[{
+
+Cell[, "Input",ExpressionUUID->"a8de20c6-89dc-4d54-9f0b-849b8747c237"],
+
+Cell[BoxData[LineWrapBox["\[AutoOperand]"], InputForm], "Output",ExpressionUUID->"e461485d-b871-4b42-86a4-270145ae1103"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{869, 852},
+WindowMargins->{{-2, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.0 for Mac OS X x86 (64-bit) (December 2, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"12f52121-96df-47a0-ad5b-a139163697e2"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[422, 15, 304, 5, 61, "Title",ExpressionUUID->"075be653-2bea-4468-8f81-7b990365ad80"],
+Cell[729, 22, 951, 22, 132, "Text",ExpressionUUID->"f04faa85-7fbd-48a2-a430-13096408d1f4"],
+Cell[CellGroupData[{
+Cell[1705, 48, 172, 3, 67, "Section",ExpressionUUID->"eb91e098-d08e-4857-83ff-2149fa4163bb"],
+Cell[CellGroupData[{
+Cell[1902, 55, 232, 4, 54, "Subsection",ExpressionUUID->"ced80015-23a2-45eb-84be-0b9d5e067c4f"],
+Cell[2137, 61, 1266, 33, 137, "Text",ExpressionUUID->"35260c03-5cea-4c8a-837b-3170c2a5f884"],
+Cell[3406, 96, 1614, 43, 199, "Input",ExpressionUUID->"d85c51cc-69d8-4c32-98e6-31f955c6f71d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5057, 144, 185, 3, 54, "Subsection",ExpressionUUID->"565ed88b-fa5a-479a-90b7-b06fa9611646"],
+Cell[5245, 149, 545, 12, 84, "Text",ExpressionUUID->"1bc96a71-0a63-43be-b0ac-45b0792b71d4"],
+Cell[5793, 163, 2807, 81, 253, "Input",ExpressionUUID->"e8836f89-dc93-4cf8-ac93-532b2db5b82a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8637, 249, 75, 0, 34, "Subsection",ExpressionUUID->"1d19d070-fba5-4d92-8681-313a625c225d"],
+Cell[8715, 251, 69, 0, 49, "Text",ExpressionUUID->"659a6e76-d6dc-4123-8b98-0ae6a43474da"],
+Cell[8787, 253, 70, 0, 73, "Input",ExpressionUUID->"d0c6c92c-8431-4c99-91fb-21beeb754c09"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8894, 258, 75, 0, 34, "Subsection",ExpressionUUID->"c5ff4438-d897-4974-94ee-3f51c06f8501"],
+Cell[8972, 260, 69, 0, 30, "Text",ExpressionUUID->"7b2d64bc-7a78-4392-89a8-ebd6a27607e4"],
+Cell[9044, 262, 70, 0, 103, "Input",ExpressionUUID->"c8a29981-c436-44ca-99f2-97a1374a4ec5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9151, 267, 75, 0, 34, "Subsection",ExpressionUUID->"e6551b01-824a-44ee-9e79-00b2f55109b7"],
+Cell[9229, 269, 69, 0, 87, "Text",ExpressionUUID->"e15c1403-5801-4afc-8942-dbcee6226bb7"],
+Cell[CellGroupData[{
+Cell[9323, 273, 70, 0, 43, "Input",ExpressionUUID->"5f3f982f-bff1-495d-b94b-709011f6b0b2"],
+Cell[9396, 275, 71, 0, 73, "Output",ExpressionUUID->"eda2dd23-447b-4b96-89ce-c7724a53f2cc"]
+}, Open  ]],
+Cell[9482, 278, 69, 0, 49, "Text",ExpressionUUID->"7a9171b0-2a88-4160-bc2a-8fabcabfbf34"],
+Cell[CellGroupData[{
+Cell[9576, 282, 70, 0, 27, "Input",ExpressionUUID->"87b6bbd5-c420-4cb1-938a-c29d57c1dd73"],
+Cell[9649, 284, 71, 0, 27, "Output",ExpressionUUID->"58ba5a67-db2b-43c0-831c-c9413b0f3950"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9769, 290, 75, 0, 34, "Subsection",ExpressionUUID->"b11bce03-ce76-4cee-a17f-62a73cff6391"],
+Cell[9847, 292, 69, 0, 68, "Text",ExpressionUUID->"851d0679-e529-4ab8-a94d-a55f5e9631b0"],
+Cell[CellGroupData[{
+Cell[9941, 296, 70, 0, 208, "Input",ExpressionUUID->"a8de20c6-89dc-4d54-9f0b-849b8747c237"],
+Cell[10014, 298, 120, 0, 447, "Output",ExpressionUUID->"e461485d-b871-4b42-86a4-270145ae1103"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

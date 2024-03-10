@@ -1,0 +1,715 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     24936,        707]
+NotebookOptionsPosition[     22526,        663]
+NotebookOutlinePosition[     22917,        679]
+CellTagsIndexPosition[     22874,        676]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[StyleBox["We will first determine the enzyme kinetics equation \
+of the transporter.\n\nThe rate equations are such that the binding to the \
+transporter is at equilibrium",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474627986956235*^9, 3.474628003506912*^9}, {
+  3.474628120243691*^9, 
+  3.474628152137753*^9}},ExpressionUUID->"31f72919-5051-4bc8-bd9d-\
+727374dceda9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"rates", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"vcs", "\[Rule]", 
+      RowBox[{"Dcs", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Cot", " ", 
+          FractionBox[
+           RowBox[{"So", "/", "Ks"}], 
+           RowBox[{"1", "+", 
+            RowBox[{"So", "/", "Ks"}]}]]}], 
+         RowBox[{"(*", 
+          RowBox[{"=", " ", 
+           RowBox[{"CoSo", " ", "equilibrium", " ", "concentration"}]}], " ", 
+          "*)"}], "-", 
+         RowBox[{"Cit", " ", 
+          FractionBox[
+           RowBox[{"Si", "/", "Ks"}], 
+           RowBox[{"1", "+", 
+            RowBox[{"Si", "/", "Ks"}]}]]}]}], " ", 
+        RowBox[{"(*", 
+         RowBox[{"=", " ", 
+          RowBox[{"CiSi", " ", "equilibrium", " ", "concentration"}]}], " ", 
+         "*)"}], ")"}]}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"vc", "\[Rule]", 
+      RowBox[{"Dc", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Cot", " ", 
+          FractionBox["1", 
+           RowBox[{"1", "+", 
+            RowBox[{"So", "/", "Ks"}]}]]}], 
+         RowBox[{"(*", " ", 
+          RowBox[{"=", " ", 
+           RowBox[{"Co", " ", "equilibrium", " ", "concentration"}]}], " ", 
+          "*)"}], "-", 
+         RowBox[{"Cit", " ", 
+          FractionBox["1", 
+           RowBox[{"1", "+", 
+            RowBox[{"Si", "/", "Ks"}]}]]}]}], " ", 
+        RowBox[{"(*", " ", 
+         RowBox[{"=", " ", 
+          RowBox[{"Ci", " ", "equilibrium", " ", "concentration"}]}], " ", 
+         "*)"}], ")"}]}]}]}], "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.4728272125073147`*^9, 3.472827307848784*^9}, {
+  3.474628038486251*^9, 
+  3.474628116282811*^9}},ExpressionUUID->"4e9fc5a8-ffaf-4af8-bfad-\
+dc356a139148"],
+
+Cell[TextData[StyleBox["The rate of the enzyme is determined at qusi-steady \
+state conditions for transporter diffusion across the membrane",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474628155402158*^9, 
+  3.47462818389657*^9}},ExpressionUUID->"30374e52-6f9a-464d-8313-\
+020f82e4bfff"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sol", "=", 
+  RowBox[{
+   RowBox[{"Solve", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"vcs", "\[Equal]", 
+         RowBox[{"-", "vc"}]}], "/.", "rates"}], ",", 
+       RowBox[{"Ct", "==", 
+        RowBox[{"Cit", "+", "Cot"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"Cit", ",", "Cot"}], "}"}]}], "]"}], "[", 
+   RowBox[{"[", "1", "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.472827312062766*^9, 3.472827342952077*^9}, {
+   3.472827382138649*^9, 3.47282745116129*^9}, 
+   3.472827567459856*^9},ExpressionUUID->"eb4bc139-2bba-43bc-bf1c-\
+f9fd08424f53"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"Cit", "\[Rule]", 
+    RowBox[{"Ct", "-", 
+     FractionBox[
+      RowBox[{"Ct", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Dc", " ", "Ks"}], "+", 
+         RowBox[{"Dcs", " ", "Si"}]}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{"Ks", "+", "So"}], ")"}]}], 
+      RowBox[{
+       RowBox[{"2", " ", "Dc", " ", 
+        SuperscriptBox["Ks", "2"]}], "+", 
+       RowBox[{"Dc", " ", "Ks", " ", "Si"}], "+", 
+       RowBox[{"Dcs", " ", "Ks", " ", "Si"}], "+", 
+       RowBox[{"Dc", " ", "Ks", " ", "So"}], "+", 
+       RowBox[{"Dcs", " ", "Ks", " ", "So"}], "+", 
+       RowBox[{"2", " ", "Dcs", " ", "Si", " ", "So"}]}]]}]}], ",", 
+   RowBox[{"Cot", "\[Rule]", 
+    FractionBox[
+     RowBox[{"Ct", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"Dc", " ", "Ks"}], "+", 
+        RowBox[{"Dcs", " ", "Si"}]}], ")"}], " ", 
+      RowBox[{"(", 
+       RowBox[{"Ks", "+", "So"}], ")"}]}], 
+     RowBox[{
+      RowBox[{"2", " ", "Dc", " ", 
+       SuperscriptBox["Ks", "2"]}], "+", 
+      RowBox[{"Dc", " ", "Ks", " ", "Si"}], "+", 
+      RowBox[{"Dcs", " ", "Ks", " ", "Si"}], "+", 
+      RowBox[{"Dc", " ", "Ks", " ", "So"}], "+", 
+      RowBox[{"Dcs", " ", "Ks", " ", "So"}], "+", 
+      RowBox[{"2", " ", "Dcs", " ", "Si", " ", "So"}]}]]}]}], "}"}]], "Output",\
+
+ CellChangeTimes->{{3.4728273343315973`*^9, 3.472827343539237*^9}, {
+   3.472827394787828*^9, 3.4728274518986*^9}, 3.472827568506229*^9, 
+   3.474628225087741*^9, 3.474632754556693*^9, 
+   3.474632831748652*^9},ExpressionUUID->"80f5ab40-14f5-47af-ad22-\
+6d72f0d3293a"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["The rate of the transporter then becomes",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.4746281882396383`*^9, 
+  3.474628195873773*^9}},ExpressionUUID->"b66fe011-f13f-488d-a48b-\
+8d2550ce5a45"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"v", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"vcs", "/.", "rates"}], "/.", "sol"}], "//", "Simplify"}]}], "\n", 
+ FractionBox[
+  RowBox[{"Numerator", "[", "v", "]"}], 
+  RowBox[{"Collect", "[", 
+   RowBox[{
+    RowBox[{"Denominator", "[", "v", "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"So", ",", "Si", ",", 
+      RowBox[{"So", " ", "Si"}]}], "}"}]}], "]"}]]}], "Input",
+ CellChangeTimes->{{3.472827420503573*^9, 3.4728274739374447`*^9}, {
+  3.4728279298451443`*^9, 3.4728279328847847`*^9}, {3.474628208195835*^9, 
+  3.474628220548052*^9}},ExpressionUUID->"cf146763-fc55-4590-8d75-\
+c6eb86043062"],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"Ct", " ", "Dc", " ", "Dcs", " ", "Ks", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "Si"}], "+", "So"}], ")"}]}], 
+  RowBox[{
+   RowBox[{"Dc", " ", "Ks", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"2", " ", "Ks"}], "+", "Si", "+", "So"}], ")"}]}], "+", 
+   RowBox[{"Dcs", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"2", " ", "Si", " ", "So"}], "+", 
+      RowBox[{"Ks", " ", 
+       RowBox[{"(", 
+        RowBox[{"Si", "+", "So"}], ")"}]}]}], ")"}]}]}]]], "Output",
+ CellChangeTimes->{{3.474628212393345*^9, 3.474628226784174*^9}, 
+   3.47463275619195*^9, 
+   3.474632832946677*^9},ExpressionUUID->"aa13867b-355e-4f34-a5c2-\
+af94768ef1a2"],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"Ct", " ", "Dc", " ", "Dcs", " ", "Ks", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "Si"}], "+", "So"}], ")"}]}], 
+  RowBox[{
+   RowBox[{"2", " ", "Dc", " ", 
+    SuperscriptBox["Ks", "2"]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Dc", " ", "Ks"}], "+", 
+      RowBox[{"Dcs", " ", "Ks"}]}], ")"}], " ", "Si"}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Dc", " ", "Ks"}], "+", 
+      RowBox[{"Dcs", " ", "Ks"}]}], ")"}], " ", "So"}], "+", 
+   RowBox[{"2", " ", "Dcs", " ", "Si", " ", "So"}]}]]], "Output",
+ CellChangeTimes->{{3.474628212393345*^9, 3.474628226784174*^9}, 
+   3.47463275619195*^9, 
+   3.474632832950452*^9},ExpressionUUID->"8d01cf47-9351-44e5-8932-\
+1675f709c4b4"]
+}, Open  ]],
+
+Cell[TextData[{
+ "This equation can be rearranged to define enzyme kinetic parameters such as \
+Vmax and K's:\n\n",
+ Cell[BoxData[
+  RowBox[{"v", "=", 
+   RowBox[{
+    FractionBox[
+     RowBox[{
+      FractionBox[
+       RowBox[{"Ct", " ", "Dc", " ", "Dcs", " ", "Ks", " "}], 
+       RowBox[{"2", " ", "Dc", " ", 
+        SuperscriptBox["Ks", "2"]}]], 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "Si"}], "+", "So"}], ")"}]}], 
+     RowBox[{"1", "+", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"Dc", " ", "Ks"}], "+", 
+          RowBox[{"Dcs", " ", "Ks"}]}], ")"}], 
+        RowBox[{"2", " ", "Dc", " ", 
+         SuperscriptBox["Ks", "2"]}]], " ", "Si"}], "+", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"Dc", " ", "Ks"}], "+", 
+          RowBox[{"Dcs", " ", "Ks"}]}], ")"}], 
+        RowBox[{"2", " ", "Dc", " ", 
+         SuperscriptBox["Ks", "2"]}]], " ", "So"}], "+", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"2", " ", "Dcs", " "}], 
+        RowBox[{"2", " ", "Dc", " ", 
+         SuperscriptBox["Ks", "2"]}]], "Si", " ", "So"}]}]], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       FractionBox[
+        RowBox[{"Ct", " ", "Dcs", " "}], 
+        RowBox[{"2", " ", "Ks"}]], 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", "Si"}], "+", "So"}], ")"}]}], 
+      RowBox[{"1", "+", 
+       RowBox[{
+        FractionBox[
+         RowBox[{"(", 
+          RowBox[{"Dc", " ", "+", "Dcs"}], " ", ")"}], 
+         RowBox[{"2", " ", "Dc", " ", "Ks"}]], " ", "Si"}], "+", 
+       RowBox[{
+        FractionBox[
+         RowBox[{"(", 
+          RowBox[{"Dc", "+", "Dcs"}], ")"}], 
+         RowBox[{"2", " ", "Dc", " ", "Ks"}]], " ", "So"}], "+", 
+       RowBox[{
+        FractionBox[
+         RowBox[{" ", "Dcs", " "}], 
+         RowBox[{"Dc", " ", 
+          SuperscriptBox["Ks", "2"]}]], "Si", " ", "So"}]}]], "=", 
+     RowBox[{
+      FractionBox[
+       RowBox[{
+        FractionBox[
+         RowBox[{"Ct", " ", "Dcs", " "}], 
+         RowBox[{"2", " ", "Ks"}]], 
+        FractionBox[
+         RowBox[{"Dc", 
+          RowBox[{"(", 
+           RowBox[{"Dc", "+", "Dcs"}], ")"}]}], 
+         RowBox[{"Dc", " ", 
+          RowBox[{"(", 
+           RowBox[{"Dc", "+", "Dcs"}], ")"}]}]], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "Si"}], "+", "So"}], ")"}]}], 
+       RowBox[{"1", "+", 
+        FractionBox["Si", "Km"], "+", 
+        FractionBox["So", "Km"], "+", 
+        RowBox[{
+         FractionBox[
+          RowBox[{" ", "Dcs", " "}], 
+          RowBox[{"Dc", " ", 
+           SuperscriptBox["Ks", "2"]}]], "Si", " ", "So"}]}]], "=", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"Ct", " ", "Dcs", " ", 
+         FractionBox["1", 
+          RowBox[{"Dc", " ", 
+           RowBox[{"(", 
+            RowBox[{"Dc", "+", "Dcs"}], ")"}]}]], " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Si"}], "/", "Km"}], "+", 
+           RowBox[{"So", "/", "Km"}]}], ")"}]}], 
+        RowBox[{"1", "+", 
+         FractionBox["Si", "Km"], "+", 
+         FractionBox["So", "Km"], "+", 
+         RowBox[{
+          FractionBox[
+           RowBox[{" ", "Dcs", " "}], 
+           RowBox[{"Dc", " "}]], 
+          SuperscriptBox[
+           RowBox[{"(", 
+            FractionBox[
+             RowBox[{"2", " ", "Dc", " "}], 
+             RowBox[{"Dc", "+", "Dcs"}]], ")"}], "2"], 
+          FractionBox[
+           RowBox[{"Si", " ", "So"}], 
+           RowBox[{"Km", " ", "Km"}]]}]}]], "=", 
+       FractionBox[
+        RowBox[{"Vmax", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Si"}], "/", "Km"}], "+", 
+           RowBox[{"So", "/", "Km"}]}], ")"}]}], 
+        RowBox[{"1", "+", 
+         FractionBox["Si", "Km"], "+", 
+         FractionBox["So", "Km"], "+", 
+         RowBox[{"Ki", 
+          FractionBox[
+           RowBox[{"Si", " ", "So"}], 
+           SuperscriptBox[
+            RowBox[{"Km", " "}], "2"]]}]}]]}]}]}]}]}]], "Input",
+  CellChangeTimes->{{3.472827983096743*^9, 3.472828066419392*^9}},
+  ExpressionUUID->"ffc3dc27-bb4d-4183-8fd9-311a7c41080b"]
+}], "Text",
+ CellChangeTimes->{{3.4728280777331457`*^9, 3.4728280940183887`*^9}, {
+   3.472828213924019*^9, 3.472828422360051*^9}, {3.472828452916511*^9, 
+   3.472828457349424*^9}, 3.472831776114397*^9, {3.472831822800024*^9, 
+   3.472831865686837*^9}, {3.474628229639413*^9, 3.474628288933145*^9}},
+ FontSize->16,ExpressionUUID->"b0119edb-209f-4c21-80ba-3978c1f55112"],
+
+Cell[TextData[{
+ StyleBox["So the Vmax and Km are now defined as,\n",
+  FontSize->16],
+ Cell[BoxData[{
+  RowBox[{
+   RowBox[{"Vmax", "=", 
+    RowBox[{"Ct", " ", "Dcs", " ", 
+     FractionBox["1", 
+      RowBox[{"Dc", " ", 
+       RowBox[{"(", 
+        RowBox[{"Dc", "+", "Dcs"}], ")"}]}]]}]}], 
+   ";"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Km", "=", 
+    FractionBox[
+     RowBox[{"2", "Dc", " ", "Ks"}], 
+     RowBox[{"(", 
+      RowBox[{"Dc", "+", "Dcs"}], ")"}]]}], ";"}]}],
+  FontSize->16,ExpressionUUID->"739fb17c-059c-41d3-a8bb-45f6cb5d7f6d"]
+}], "Text",
+ CellChangeTimes->{{3.474628295708867*^9, 3.474628303192052*^9}, {
+  3.474632814266523*^9, 
+  3.474632814638762*^9}},ExpressionUUID->"1e2d2d94-56da-4a72-921a-\
+6c1d2b1ed8f8"],
+
+Cell[TextData[StyleBox["The effect of product inhibition on the normalized \
+rate, v/Vmax, can be studied by plotting,",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474628340117755*^9, 
+  3.474628365803087*^9}},ExpressionUUID->"fbfe01b7-5216-4983-9b11-\
+6b3859c12327"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"fc", "=", 
+   FractionBox[
+    RowBox[{" ", 
+     RowBox[{
+      RowBox[{"So", "/", "Km"}], "-", 
+      RowBox[{"Si", "/", "Km"}]}]}], 
+    RowBox[{"1", "+", 
+     FractionBox["Si", "Km"], "+", 
+     FractionBox["So", "Km"], "+", 
+     RowBox[{"Ki", 
+      FractionBox[
+       RowBox[{"Si", " ", "So"}], 
+       SuperscriptBox[
+        RowBox[{"Km", " "}], "2"]]}]}]]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"parm", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"So", "\[Rule]", "5"}], ",", 
+     RowBox[{"Km", "\[Rule]", "1.19"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      FractionBox[
+       RowBox[{" ", 
+        RowBox[{
+         RowBox[{"So", "/", "Km"}], "-", 
+         RowBox[{"Si", "/", "Km"}]}]}], 
+       RowBox[{"1", "+", 
+        FractionBox["Si", "Km"], "+", 
+        FractionBox["So", "Km"], "+", 
+        RowBox[{"Ki", 
+         FractionBox[
+          RowBox[{"Si", " ", "So"}], 
+          SuperscriptBox[
+           RowBox[{"Km", " "}], "2"]]}]}]], "/.", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"So", "\[Rule]", "5"}], ",", 
+        RowBox[{"Km", "\[Rule]", "1.19"}]}], "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"Si", ",", "0", ",", "10"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "10"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "}"}]}], ",", 
+     RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+     RowBox[{"FrameLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Si\>\"", ",", "\"\<normalized rate, v/Vmax\>\""}], 
+       "}"}]}], ",", 
+     RowBox[{"BaseStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"FontSize", "->", "16"}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Ki", ",", "0.91"}], "}"}], ",", "0", ",", "5"}], "}"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.474628327593018*^9, 3.4746283308152742`*^9}, {
+  3.4746283684873238`*^9, 3.4746285945455303`*^9}, {3.474632735433779*^9, 
+  3.474632738183134*^9}, {3.474632769767726*^9, 
+  3.474632770092757*^9}},ExpressionUUID->"1460e81d-597f-4878-a6f9-\
+cd6879544ef0"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`Ki$$ = 2.07, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`Ki$$], 0.91}, 0, 5}}, Typeset`size$$ = {
+    360., {115., 120.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`Ki$516$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`Ki$$ = 0.91}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`Ki$$, $CellContext`Ki$516$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[
+        ReplaceAll[($CellContext`So/$CellContext`Km - \
+$CellContext`Si/$CellContext`Km)/(
+         1 + $CellContext`Si/$CellContext`Km + \
+$CellContext`So/$CellContext`Km + $CellContext`Ki$$ ($CellContext`Si \
+($CellContext`So/$CellContext`Km^2))), {$CellContext`So -> 5, $CellContext`Km -> 
+          1.19}], {$CellContext`Si, 0, 10}, PlotRange -> {{0, 10}, {-1, 1}}, 
+        Frame -> True, FrameLabel -> {"Si", "normalized rate, v/Vmax"}, 
+        BaseStyle -> {FontSize -> 16}], 
+      "Specifications" :> {{{$CellContext`Ki$$, 0.91}, 0, 5}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{404., {160., 166.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.474628568369982*^9, 3.474628595071817*^9}, {
+   3.474632739301174*^9, 3.4746327909503736`*^9}, 
+   3.4746328409596453`*^9},ExpressionUUID->"d67f715b-b21f-4e41-892e-\
+cb9a792d3d38"]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["Higher values of the Ki decrease the transport rate.  So a value \
+of 0.91 moderately enhances transport.\n\nThe equilibrium constant for the \
+enzyme is 1, as v=0 at Si/So=1.\n\nThe sensitivity of the rate to the \
+external substrate level is given by ",
+  FontSize->16],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     FractionBox[
+      RowBox[{"\[PartialD]", "lnv"}], 
+      RowBox[{"\[PartialD]", "lnSo"}]], "=", 
+     RowBox[{
+      FractionBox["So", "v"], 
+      FractionBox[
+       RowBox[{"\[PartialD]", "v"}], 
+       RowBox[{"\[PartialD]", "So"}]]}]}],
+    FontSize->18], TraditionalForm]],ExpressionUUID->
+  "97e7416c-8591-4489-b4ef-8dcc8502f255"]
+}], "Text",
+ CellChangeTimes->{{3.474628621271006*^9, 3.474628698949574*^9}, {
+  3.4746321270437737`*^9, 3.4746322902001553`*^9}, {3.4746323237037086`*^9, 
+  3.4746323711689157`*^9}, {3.4746324161567373`*^9, 
+  3.474632430951769*^9}},ExpressionUUID->"e0dbcfd0-60aa-4976-8351-\
+6f2a2a1a1bbd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"D", "[", 
+    RowBox[{
+     RowBox[{"Vm", " ", 
+      FractionBox[
+       RowBox[{" ", 
+        RowBox[{
+         RowBox[{"So", "/", "Km"}], "-", 
+         RowBox[{"Si", "/", "Km"}]}]}], 
+       RowBox[{"1", "+", 
+        FractionBox["Si", "Km"], "+", 
+        FractionBox["So", "Km"], "+", 
+        RowBox[{"Ki", 
+         FractionBox[
+          RowBox[{"Si", " ", "So"}], 
+          SuperscriptBox[
+           RowBox[{"Km", " "}], "2"]]}]}]]}], ",", "So"}], "]"}], "*", 
+   FractionBox["So", 
+    RowBox[{"Vm", " ", 
+     FractionBox[
+      RowBox[{" ", 
+       RowBox[{
+        RowBox[{"So", "/", "Km"}], "-", 
+        RowBox[{"Si", "/", "Km"}]}]}], 
+      RowBox[{"1", "+", 
+       FractionBox["Si", "Km"], "+", 
+       FractionBox["So", "Km"], "+", 
+       RowBox[{"Ki", 
+        FractionBox[
+         RowBox[{"Si", " ", "So"}], 
+         SuperscriptBox[
+          RowBox[{"Km", " "}], "2"]]}]}]]}]]}], "//", "Simplify"}]], "Input",
+ CellChangeTimes->{{3.4746322963806877`*^9, 3.474632348721736*^9}, {
+  3.474632386550419*^9, 3.4746324477649508`*^9}, {3.4746324883559*^9, 
+  3.4746325191470327`*^9}, {3.4746325545365*^9, 
+  3.474632559321316*^9}},ExpressionUUID->"e88bf7f0-a745-4acc-8569-\
+6048f5fe4f37"],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  FractionBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["Km", "2"], "+", 
+      RowBox[{"2", " ", "Km", " ", "Si"}], "+", 
+      RowBox[{"Ki", " ", 
+       SuperscriptBox["Si", "2"]}]}], ")"}], " ", "So"}], 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"Si", "-", "So"}], ")"}], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["Km", "2"], "+", 
+      RowBox[{"Ki", " ", "Si", " ", "So"}], "+", 
+      RowBox[{"Km", " ", 
+       RowBox[{"(", 
+        RowBox[{"Si", "+", "So"}], ")"}]}]}], ")"}]}]]}]], "Output",
+ CellChangeTimes->{{3.474632484478757*^9, 3.47463251275177*^9}, {
+   3.4746325550917797`*^9, 3.4746325603476877`*^9}, 
+   3.474632849414501*^9},ExpressionUUID->"7f219de1-b561-43a7-afed-\
+24f2e565879c"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["An enzyme is sensitive to its substrate if the \
+substrate concentration is around the Km for the enzyme.  An enzyme has a \
+high rate is the Vmax is high.  So the ratio of Vmax/Km gives the so-called \
+enzyme efficiency, if is high than the enzyme is fast and sensitive.\n\nThis \
+ratio equals for this enzyme, with Ct as total enzyme.  ",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474633005734776*^9, 3.47463306652822*^9}, {
+  3.4746331163910027`*^9, 
+  3.474633187790202*^9}},ExpressionUUID->"0c573d24-f7c4-4d83-bac3-\
+a694be0a4813"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"Ct", " ", "Dcs", " ", 
+   FractionBox["1", 
+    RowBox[{"Dc", " ", 
+     RowBox[{"(", 
+      RowBox[{"Dc", "+", "Dcs"}], ")"}]}]]}], 
+  FractionBox[
+   RowBox[{"2", "Dc", " ", "Ks"}], 
+   RowBox[{"(", 
+    RowBox[{"Dc", "+", "Dcs"}], ")"}]]]], "Input",
+ CellChangeTimes->{{3.4746331461946363`*^9, 
+  3.474633146803679*^9}},ExpressionUUID->"0ba2ebd3-0b0f-4cd7-b74a-\
+708a2b151bbe"],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"Ct", " ", "Dcs"}], 
+  RowBox[{"2", " ", 
+   SuperscriptBox["Dc", "2"], " ", "Ks"}]]], "Output",
+ CellChangeTimes->{
+  3.4746331477960863`*^9},ExpressionUUID->"ee41cd17-52cd-4fde-894e-\
+d087b3f55276"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["So the specificity increase with the diffusivity of \
+bound transporter Dcs and with increase in Ks, the dissociation constant of \
+the transporter for the solute; lower values means more bound to the receptor \
+at the same concentration of solute.",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474633191727393*^9, 
+  3.474633285755064*^9}},ExpressionUUID->"466d3233-e325-4d72-9e43-\
+28bbad8eb994"]
+},
+WindowSize->{715, 841},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.1 for Mac OS X ARM (64-bit) (June 16, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"99e57c24-5e7b-46ab-995e-fa9c901645f4"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 387, 7, 84, "Text",ExpressionUUID->"31f72919-5051-4bc8-bd9d-727374dceda9"],
+Cell[935, 29, 1763, 50, 206, "Input",ExpressionUUID->"4e9fc5a8-ffaf-4af8-bfad-dc356a139148"],
+Cell[2701, 81, 292, 5, 60, "Text",ExpressionUUID->"30374e52-6f9a-464d-8313-020f82e4bfff"],
+Cell[CellGroupData[{
+Cell[3018, 90, 629, 18, 30, "Input",ExpressionUUID->"eb4bc139-2bba-43bc-bf1c-f9fd08424f53"],
+Cell[3650, 110, 1614, 43, 96, "Output",ExpressionUUID->"80f5ab40-14f5-47af-ad22-6d72f0d3293a"]
+}, Open  ]],
+Cell[5279, 156, 219, 4, 36, "Text",ExpressionUUID->"b66fe011-f13f-488d-a48b-8d2550ce5a45"],
+Cell[CellGroupData[{
+Cell[5523, 164, 625, 16, 73, "Input",ExpressionUUID->"cf146763-fc55-4590-8d75-c6eb86043062"],
+Cell[6151, 182, 705, 21, 53, "Output",ExpressionUUID->"aa13867b-355e-4f34-a5c2-af94768ef1a2"],
+Cell[6859, 205, 775, 23, 55, "Output",ExpressionUUID->"8d01cf47-9351-44e5-8932-1675f709c4b4"]
+}, Open  ]],
+Cell[7649, 231, 4585, 135, 249, "Text",ExpressionUUID->"b0119edb-209f-4c21-80ba-3978c1f55112"],
+Cell[12237, 368, 748, 23, 97, "Text",ExpressionUUID->"1e2d2d94-56da-4a72-921a-6c1d2b1ed8f8"],
+Cell[12988, 393, 271, 5, 36, "Text",ExpressionUUID->"fbfe01b7-5216-4983-9b11-6b3859c12327"],
+Cell[CellGroupData[{
+Cell[13284, 402, 2336, 72, 221, "Input",ExpressionUUID->"1460e81d-597f-4878-a6f9-cd6879544ef0"],
+Cell[15623, 476, 2134, 42, 345, "Output",ExpressionUUID->"d67f715b-b21f-4e41-892e-cb9a792d3d38"]
+}, Open  ]],
+Cell[17772, 521, 987, 25, 164, "Text",ExpressionUUID->"e0dbcfd0-60aa-4976-8351-6f2a2a1a1bbd"],
+Cell[CellGroupData[{
+Cell[18784, 550, 1256, 38, 74, "Input",ExpressionUUID->"e88bf7f0-a745-4acc-8569-6048f5fe4f37"],
+Cell[20043, 590, 774, 23, 61, "Output",ExpressionUUID->"7f219de1-b561-43a7-afed-24f2e565879c"]
+}, Open  ]],
+Cell[20832, 616, 565, 9, 132, "Text",ExpressionUUID->"0c573d24-f7c4-4d83-bac3-a694be0a4813"],
+Cell[CellGroupData[{
+Cell[21422, 629, 419, 13, 70, "Input",ExpressionUUID->"0ba2ebd3-0b0f-4cd7-b74a-708a2b151bbe"],
+Cell[21844, 644, 238, 7, 52, "Output",ExpressionUUID->"ee41cd17-52cd-4fde-894e-d087b3f55276"]
+}, Open  ]],
+Cell[22097, 654, 425, 7, 84, "Text",ExpressionUUID->"466d3233-e325-4d72-9e43-28bbad8eb994"]
+}
+]
+*)
+

@@ -1,0 +1,1318 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     48079,       1309]
+NotebookOptionsPosition[     45636,       1231]
+NotebookOutlinePosition[     45975,       1246]
+CellTagsIndexPosition[     45932,       1243]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[StyleBox["Model 1",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474546692612191*^9, 3.474546694992025*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"odes1", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"x", "'"}], "[", "t", "]"}], "\[Equal]", 
+      RowBox[{"v1", "-", "v2"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"y", "'"}], "[", "t", "]"}], "\[Equal]", 
+      RowBox[{"v2", "-", "v3"}]}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rateqs1", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"v1", "\[Rule]", 
+      FractionBox[
+       RowBox[{
+        FractionBox[
+         RowBox[{"V1", "*", "s"}], "K1s"], 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          FractionBox[
+           RowBox[{"x", "[", "t", "]"}], 
+           RowBox[{"s", " ", "Keq1"}]]}], ")"}]}], 
+       RowBox[{"1", "+", 
+        FractionBox["s", "K1s"], "+", 
+        FractionBox[
+         RowBox[{"x", "[", "t", "]"}], "K1x"]}]]}], ",", 
+     RowBox[{"v2", "\[Rule]", 
+      FractionBox[
+       RowBox[{
+        FractionBox[
+         RowBox[{"V2", "*", 
+          RowBox[{"x", "[", "t", "]"}]}], "K2x"], 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          FractionBox[
+           RowBox[{"y", "[", "t", "]"}], 
+           RowBox[{
+            RowBox[{"x", "[", "t", "]"}], " ", "Keq2"}]]}], ")"}]}], 
+       RowBox[{"1", "+", 
+        FractionBox[
+         RowBox[{"x", "[", "t", "]"}], "K2x"], "+", 
+        FractionBox[
+         RowBox[{"y", "[", "t", "]"}], "K2y"]}]]}], ",", 
+     RowBox[{"v3", "\[Rule]", 
+      FractionBox[
+       RowBox[{
+        FractionBox[
+         RowBox[{"V3", "*", 
+          RowBox[{"y", "[", "t", "]"}]}], "K3y"], 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          FractionBox["p", 
+           RowBox[{
+            RowBox[{"y", "[", "t", "]"}], " ", "Keq3"}]]}], ")"}]}], 
+       RowBox[{"1", "+", 
+        FractionBox[
+         RowBox[{"y", "[", "t", "]"}], "K3y"], "+", 
+        FractionBox["p", "K3p"]}]]}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"parm1", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{"(*", " ", 
+     RowBox[{"enzyme", " ", "1"}], " ", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"V1", "\[Rule]", "10"}], ",", 
+     RowBox[{"K1s", "\[Rule]", "1"}], ",", 
+     RowBox[{"Keq1", "\[Rule]", "1000"}], ",", 
+     RowBox[{"K1x", "\[Rule]", "1"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{"enzyme", " ", "2"}], " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"V2", "\[Rule]", "10"}], ",", 
+     RowBox[{"K2x", "\[Rule]", "1"}], ",", 
+     RowBox[{"Keq2", "\[Rule]", "1"}], ",", 
+     RowBox[{"K2y", "\[Rule]", "1"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{"enzyme", " ", "3"}], " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"V3", "\[Rule]", "10"}], ",", 
+     RowBox[{"K3y", "\[Rule]", "1"}], ",", 
+     RowBox[{"Keq3", "\[Rule]", "1000"}], ",", 
+     RowBox[{"K3p", "\[Rule]", "1"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{"boundary", " ", "conditions"}], " ", "*)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"s", "\[Rule]", "10"}], ",", " ", 
+     RowBox[{"p", "\[Rule]", "1"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"init1", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"x", "[", "0", "]"}], "\[Equal]", "1"}], ",", 
+     RowBox[{
+      RowBox[{"y", "[", "0", "]"}], "\[Equal]", "5"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vars1", "=", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y"}], "}"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.4745337581385593`*^9, 3.474534041763208*^9}, {
+  3.474534097886312*^9, 3.474534099925931*^9}, {3.474534184849457*^9, 
+  3.474534192235112*^9}, {3.474546696564952*^9, 3.4745467466559362`*^9}}],
+
+Cell[TextData[StyleBox["To determine the value of the equilibrium constant ",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474546909335392*^9, 3.474546919287627*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"parmchange1", "[", 
+   RowBox[{"param_", ",", "newvalue_"}], "]"}], ":=", 
+  RowBox[{"ReplacePart", "[", 
+   RowBox[{"parm1", ",", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{"parm1", ",", "param"}], "]"}], "[", 
+       RowBox[{"[", "1", "]"}], "]"}], "[", 
+      RowBox[{"[", "1", "]"}], "]"}], "\[Rule]", 
+     RowBox[{"param", "\[Rule]", "newvalue"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.474535032781283*^9, 3.474535120175839*^9}, {
+   3.474546825949946*^9, 3.474546828069916*^9}, 3.47454687113297*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"tsolchange1", "[", 
+   RowBox[{"param_", ",", "newvalue_"}], "]"}], ":=", 
+  RowBox[{"NDSolve", "[", 
+   RowBox[{
+    RowBox[{"Join", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"odes1", "/.", "rateqs1"}], "/.", 
+       RowBox[{"parmchange1", "[", 
+        RowBox[{"param", ",", "newvalue"}], "]"}]}], ",", "init1"}], "]"}], 
+    ",", "vars1", ",", 
+    RowBox[{"{", 
+     RowBox[{"t", ",", "0", ",", "100"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.474535140756754*^9, 3.4745352043176403`*^9}, {
+  3.47454683157626*^9, 3.474546872672247*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sschange1", "[", 
+   RowBox[{"param_", ",", "newvalue_"}], "]"}], ":=", 
+  RowBox[{"FindRoot", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"odes1", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", " ", 
+          RowBox[{"Length", "[", "odes1", "]"}]}], "}"}]}], "]"}], "/.", 
+      "rateqs1"}], "/.", 
+     RowBox[{"parmchange1", "[", 
+      RowBox[{"param", ",", "newvalue"}], "]"}]}], ",", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"vars1", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "[", "t", "]"}], ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"vars1", "[", 
+             RowBox[{"[", "i", "]"}], "]"}], "[", "5", "]"}], "/.", 
+           RowBox[{"tsolchange1", "[", 
+            RowBox[{"param", ",", "newvalue"}], "]"}]}], ")"}], "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", 
+        RowBox[{"Length", "[", "vars1", "]"}]}], "}"}]}], "]"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.474535208392577*^9, 3.4745352758608723`*^9}, {
+  3.474546842835031*^9, 3.474546878170848*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"V2val", ",", 
+      RowBox[{
+       RowBox[{
+        FractionBox[
+         RowBox[{"y", "[", "t", "]"}], 
+         RowBox[{
+          RowBox[{"x", "[", "t", "]"}], " ", "Keq2"}]], "/.", "parm1"}], "/.", 
+       RowBox[{"sschange1", "[", 
+        RowBox[{"V2", ",", "V2val"}], "]"}]}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"V2val", ",", "1", ",", "300", ",", "10"}], "}"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TableForm", "[", 
+  RowBox[{"%", ",", 
+   RowBox[{"TableHeadings", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"None", ",", 
+      RowBox[{"{", 
+       RowBox[{"\"\<V2\>\"", ",", "\"\<\[CapitalGamma]2/Keq2\>\""}], "}"}]}], 
+     "}"}]}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"%", ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "300"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Gill Sans Light\>\""}], ",", " ", 
+      
+      RowBox[{"FontSize", "\[Rule]", "16"}]}], "}"}]}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<maximal rate first enzyme, V2\>\"", ",", 
+      "\"\<\[CapitalGamma]2/Keq2\>\""}], "}"}]}], ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"Red", ",", 
+       RowBox[{"Thickness", "[", "0.01", "]"}]}], "}"}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.4745468838472967`*^9, 3.474546889587399*^9}, {
+   3.474546959188146*^9, 3.474547167110857*^9}, 3.474547596082984*^9}],
+
+Cell[BoxData[
+ TagBox[
+  TagBox[GridBox[{
+     {
+      TagBox["\<\"V2\"\>",
+       HoldForm], 
+      TagBox["\<\"\[CapitalGamma]2/Keq2\"\>",
+       HoldForm]},
+     {"1", "0.002446361638392159`"},
+     {"11", "0.3020821182782373`"},
+     {"21", "0.5183998224565763`"},
+     {"31", "0.6344821053044627`"},
+     {"41", "0.7058033765580618`"},
+     {"51", "0.7539257611198658`"},
+     {"61", "0.7885508894824663`"},
+     {"71", "0.8146479256275075`"},
+     {"81", "0.8350178113693212`"},
+     {"91", "0.8513575123231418`"},
+     {"101", "0.8647544793091082`"},
+     {"111", "0.8759375079622342`"},
+     {"121", "0.8854132322734506`"},
+     {"131", "0.8935447348674376`"},
+     {"141", "0.9005990027661162`"},
+     {"151", "0.9067767334147733`"},
+     {"161", "0.9122316989744345`"},
+     {"171", "0.9170836995335352`"},
+     {"181", "0.9214274512940331`"},
+     {"191", "0.9253388236729502`"},
+     {"201", "0.9288793039435145`"},
+     {"211", "0.9320992503669722`"},
+     {"221", "0.9350403006912391`"},
+     {"231", "0.9377371812095893`"},
+     {"241", "0.9402190834780436`"},
+     {"251", "0.9425107246022139`"},
+     {"261", "0.9446331728040135`"},
+     {"271", "0.9466044967254948`"},
+     {"281", "0.9484402808618639`"},
+     {"291", "0.950154038251967`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxDividers->{
+     "Columns" -> {{False}}, "ColumnsIndexed" -> {}, 
+      "Rows" -> {False, True, {False}, False}, "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   {None, OutputFormsDump`HeadedColumns}],
+  Function[BoxForm`e$, 
+   TableForm[
+   BoxForm`e$, 
+    TableHeadings -> {None, {"V2", "\[CapitalGamma]2/Keq2"}}]]]], "Output",
+ CellChangeTimes->{
+  3.474546890183113*^9, 3.474546972402334*^9, {3.474547007976699*^9, 
+   3.474547021445977*^9}, {3.474547061595418*^9, 3.474547088048066*^9}, {
+   3.474547154208197*^9, 3.47454716870719*^9}, 3.4745475976674957`*^9}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {RGBColor[1, 0, 0], Thickness[0.01], LineBox[CompressedData["
+1:eJxTTMoPSmViYGCQA2IQDQEf7M9zpKancKXYQ/hqDnIda20CQi9D+aYOCxvK
+LHdPewDl2ztsOdiatdb3CYTf4OJwS6X824epz6B8Twerp59faSi8gPL9HDof
+GQqft34J4R8IdIhNPNU2Q/AVhO8Q4hAi8ta1fAeUfyDM4Yy5iEyQ3WuofKTD
+tfJvUwXXQPkHoh3qjA9KrGN/A5WPc2h906joFwrlJyQ4rJyxQ+H1dCh/QaKD
+kNS3/1suQvkPkhwYPW8uDmB5C+ErpDg8ZtfvYDCE8hNSHZrk1F7tj4DyF6Q5
+JFvK5YTWQPkP0h305+toJcyB6c90eHyaWzxxJ0x/lsPbinnnDl6G6c92eKX6
+d9HN1zD9OQ6rrTamf2R8B9Wf5yC64HKImxiUn5Dv8LXM04FHE8oPKHCIlPsb
+kW8F5X8ocIi9Xto81QvKn1DooBYxIW9+JJRvUOTQ2s1XuDL9nT0A8WSYJQ==
+
+    "]]},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  BaseStyle->{FontFamily -> "Gill Sans Light", FontSize -> 16},
+  Frame->True,
+  FrameLabel->{
+    FormBox["\"maximal rate first enzyme, V2\"", TraditionalForm], 
+    FormBox["\"\[CapitalGamma]2/Keq2\"", TraditionalForm]},
+  PlotRange->{{0, 300}, {0, 1}},
+  PlotRangeClipping->True]], "Output",
+ CellChangeTimes->{
+  3.474546890183113*^9, 3.474546972402334*^9, {3.474547007976699*^9, 
+   3.474547021445977*^9}, {3.474547061595418*^9, 3.474547088048066*^9}, {
+   3.474547154208197*^9, 3.47454716870719*^9}, 3.474547597691802*^9}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["So this shows that V2 equals 140.096 that this enzyme \
+operates close to thermodynamic equilibrium,",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.4745472231899357`*^9, 3.474547247507023*^9}, {
+  3.474547892918009*^9, 3.4745478963298903`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   FractionBox[
+    RowBox[{"y", "[", "t", "]"}], 
+    RowBox[{
+     RowBox[{"x", "[", "t", "]"}], " ", "Keq2"}]], "/.", "parm1"}], "/.", 
+  RowBox[{"sschange1", "[", 
+   RowBox[{"V2", ",", "140.096"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.474547198973029*^9, 3.4745472160491056`*^9}, {
+  3.474547836361774*^9, 3.474547888895568*^9}}],
+
+Cell[BoxData["0.899999952615594`"], "Output",
+ CellChangeTimes->{{3.4745472050271482`*^9, 3.4745472165390587`*^9}, {
+  3.474547836945212*^9, 3.4745478978418922`*^9}}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Increasing the Vmax further shifts the enzyme more \
+equilibrium.\n\nHow far are the other enzymes from equilibrium?",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474547251297522*^9, 3.474547305186221*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   FractionBox[
+    RowBox[{"x", "[", "t", "]"}], 
+    RowBox[{"s", " ", "Keq1"}]], "/.", "parm1"}], "/.", 
+  RowBox[{"sschange1", "[", 
+   RowBox[{"V2", ",", "140.096"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   FractionBox["p", 
+    RowBox[{
+     RowBox[{"y", "[", "t", "]"}], " ", "Keq3"}]], "/.", "parm1"}], "/.", 
+  RowBox[{"sschange1", "[", 
+   RowBox[{"V2", ",", "140.096"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.474547309441703*^9, 3.4745473266987343`*^9}, {
+  3.4745478048651867`*^9, 3.474547805330056*^9}, {3.4745479037762337`*^9, 
+  3.474547904822926*^9}}],
+
+Cell[BoxData["0.00042393842225889013`"], "Output",
+ CellChangeTimes->{{3.474547314319627*^9, 3.474547327592314*^9}, 
+   3.474547805684916*^9, 3.474547906855804*^9}],
+
+Cell[BoxData["0.0002620925849773175`"], "Output",
+ CellChangeTimes->{{3.474547314319627*^9, 3.474547327592314*^9}, 
+   3.474547805684916*^9, 3.474547906893462*^9}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["So enzyme 1 is furthest from equilibrium, then enzyme \
+3 and then enzyme 2.",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474547345577732*^9, 3.4745473914052353`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Model 2.",
+  FontSize->16,
+  FontWeight->"Bold"],
+ StyleBox[" \n\nIn the previous model, the equilibrium constant of the first \
+enzyme was set to 1.  We will now set it to 100 and determine again the value \
+of the Vmax of the 2nd enzyme to have it 10% removed from thermodynamic \
+equilibrium in steady state.",
+  FontSize->16]
+}], "Text",
+ CellChangeTimes->{{3.474546692612191*^9, 3.474546694992025*^9}, {
+  3.474547434880075*^9, 3.474547527462578*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"odes2", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"x", "'"}], "[", "t", "]"}], "\[Equal]", 
+      RowBox[{"v1", "-", "v2"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"y", "'"}], "[", "t", "]"}], "\[Equal]", 
+      RowBox[{"v2", "-", "v3"}]}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rateqs2", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"v1", "\[Rule]", 
+      FractionBox[
+       RowBox[{
+        FractionBox[
+         RowBox[{"V1", "*", "s"}], "K1s"], 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          FractionBox[
+           RowBox[{"x", "[", "t", "]"}], 
+           RowBox[{"s", " ", "Keq1"}]]}], ")"}]}], 
+       RowBox[{"1", "+", 
+        FractionBox["s", "K1s"], "+", 
+        FractionBox[
+         RowBox[{"x", "[", "t", "]"}], "K1x"]}]]}], ",", 
+     RowBox[{"v2", "\[Rule]", 
+      FractionBox[
+       RowBox[{
+        FractionBox[
+         RowBox[{"V2", "*", 
+          RowBox[{"x", "[", "t", "]"}]}], "K2x"], 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          FractionBox[
+           RowBox[{"y", "[", "t", "]"}], 
+           RowBox[{
+            RowBox[{"x", "[", "t", "]"}], " ", "Keq2"}]]}], ")"}]}], 
+       RowBox[{"1", "+", 
+        FractionBox[
+         RowBox[{"x", "[", "t", "]"}], "K2x"], "+", 
+        FractionBox[
+         RowBox[{"y", "[", "t", "]"}], "K2y"]}]]}], ",", 
+     RowBox[{"v3", "\[Rule]", 
+      FractionBox[
+       RowBox[{
+        FractionBox[
+         RowBox[{"V3", "*", 
+          RowBox[{"y", "[", "t", "]"}]}], "K3y"], 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          FractionBox["p", 
+           RowBox[{
+            RowBox[{"y", "[", "t", "]"}], " ", "Keq3"}]]}], ")"}]}], 
+       RowBox[{"1", "+", 
+        FractionBox[
+         RowBox[{"y", "[", "t", "]"}], "K3y"], "+", 
+        FractionBox["p", "K3p"]}]]}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"parm2", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{"(*", " ", 
+     RowBox[{"enzyme", " ", "1"}], " ", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"V1", "\[Rule]", "10"}], ",", 
+     RowBox[{"K1s", "\[Rule]", "1"}], ",", 
+     RowBox[{"Keq1", "\[Rule]", "1000"}], ",", 
+     RowBox[{"K1x", "\[Rule]", "1"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{"enzyme", " ", "2"}], " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"V2", "\[Rule]", "10"}], ",", 
+     RowBox[{"K2x", "\[Rule]", "1"}], ",", 
+     RowBox[{"Keq2", "\[Rule]", "100"}], ",", 
+     RowBox[{"K2y", "\[Rule]", "1"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{"enzyme", " ", "3"}], " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"V3", "\[Rule]", "10"}], ",", 
+     RowBox[{"K3y", "\[Rule]", "1"}], ",", 
+     RowBox[{"Keq3", "\[Rule]", "1000"}], ",", 
+     RowBox[{"K3p", "\[Rule]", "1"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{"boundary", " ", "conditions"}], " ", "*)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"s", "\[Rule]", "10"}], ",", " ", 
+     RowBox[{"p", "\[Rule]", "1"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"init2", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"x", "[", "0", "]"}], "\[Equal]", "1"}], ",", 
+     RowBox[{
+      RowBox[{"y", "[", "0", "]"}], "\[Equal]", "5"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vars2", "=", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y"}], "}"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.4745337581385593`*^9, 3.474534041763208*^9}, {
+  3.474534097886312*^9, 3.474534099925931*^9}, {3.474534184849457*^9, 
+  3.474534192235112*^9}, {3.474546696564952*^9, 3.4745467466559362`*^9}, {
+  3.474547530789295*^9, 3.474547540572904*^9}}],
+
+Cell[TextData[StyleBox["To determine the value of the equilibrium constant ",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474546909335392*^9, 3.474546919287627*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"parmchange2", "[", 
+   RowBox[{"param_", ",", "newvalue_"}], "]"}], ":=", 
+  RowBox[{"ReplacePart", "[", 
+   RowBox[{"parm2", ",", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{"parm2", ",", "param"}], "]"}], "[", 
+       RowBox[{"[", "1", "]"}], "]"}], "[", 
+      RowBox[{"[", "1", "]"}], "]"}], "\[Rule]", 
+     RowBox[{"param", "\[Rule]", "newvalue"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.474535032781283*^9, 3.474535120175839*^9}, {
+   3.474546825949946*^9, 3.474546828069916*^9}, 3.47454687113297*^9, {
+   3.474547544186099*^9, 3.4745475477168407`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"tsolchange2", "[", 
+   RowBox[{"param_", ",", "newvalue_"}], "]"}], ":=", 
+  RowBox[{"NDSolve", "[", 
+   RowBox[{
+    RowBox[{"Join", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"odes2", "/.", "rateqs2"}], "/.", 
+       RowBox[{"parmchange2", "[", 
+        RowBox[{"param", ",", "newvalue"}], "]"}]}], ",", "init2"}], "]"}], 
+    ",", "vars2", ",", 
+    RowBox[{"{", 
+     RowBox[{"t", ",", "0", ",", "100"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.474535140756754*^9, 3.4745352043176403`*^9}, {
+  3.47454683157626*^9, 3.474546872672247*^9}, {3.47454755054989*^9, 
+  3.474547560052196*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sschange2", "[", 
+   RowBox[{"param_", ",", "newvalue_"}], "]"}], ":=", 
+  RowBox[{"FindRoot", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"odes2", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", " ", 
+          RowBox[{"Length", "[", "odes2", "]"}]}], "}"}]}], "]"}], "/.", 
+      "rateqs2"}], "/.", 
+     RowBox[{"parmchange2", "[", 
+      RowBox[{"param", ",", "newvalue"}], "]"}]}], ",", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"vars2", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], "[", "t", "]"}], ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"vars2", "[", 
+             RowBox[{"[", "i", "]"}], "]"}], "[", "100", "]"}], "/.", 
+           RowBox[{"tsolchange2", "[", 
+            RowBox[{"param", ",", "newvalue"}], "]"}]}], ")"}], "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", 
+        RowBox[{"Length", "[", "vars2", "]"}]}], "}"}]}], "]"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.474535208392577*^9, 3.4745352758608723`*^9}, {
+  3.474546842835031*^9, 3.474546878170848*^9}, {3.474547563841584*^9, 
+  3.474547580319057*^9}, {3.474548320911817*^9, 3.4745483355130053`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"V2val", ",", 
+      RowBox[{
+       RowBox[{
+        FractionBox[
+         RowBox[{"y", "[", "t", "]"}], 
+         RowBox[{
+          RowBox[{"x", "[", "t", "]"}], " ", "Keq2"}]], "/.", "parm2"}], "/.", 
+       RowBox[{"sschange2", "[", 
+        RowBox[{"V2", ",", "V2val"}], "]"}]}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"V2val", ",", "5000", ",", "10000", ",", "500"}], "}"}]}], "]"}],
+   ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TableForm", "[", 
+  RowBox[{"%", ",", 
+   RowBox[{"TableHeadings", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"None", ",", 
+      RowBox[{"{", 
+       RowBox[{"\"\<V2\>\"", ",", "\"\<\[CapitalGamma]2/Keq2\>\""}], "}"}]}], 
+     "}"}]}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"%%", ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"5000", ",", "10000"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Gill Sans Light\>\""}], ",", " ", 
+      
+      RowBox[{"FontSize", "\[Rule]", "16"}]}], "}"}]}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<maximal rate first enzyme, V2\>\"", ",", 
+      "\"\<\[CapitalGamma]2/Keq2\>\""}], "}"}]}], ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"Red", ",", 
+       RowBox[{"Thickness", "[", "0.01", "]"}]}], "}"}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.4745468838472967`*^9, 3.474546889587399*^9}, {
+   3.474546959188146*^9, 3.474547167110857*^9}, {3.474547585227207*^9, 
+   3.4745476639426928`*^9}, 3.474548859162079*^9}],
+
+Cell[BoxData[
+ TagBox[
+  TagBox[GridBox[{
+     {
+      TagBox["\<\"V2\"\>",
+       HoldForm], 
+      TagBox["\<\"\[CapitalGamma]2/Keq2\"\>",
+       HoldForm]},
+     {"5000", "0.839338147011354`"},
+     {"5500", "0.8517859533955389`"},
+     {"6000", "0.8624435569585769`"},
+     {"6500", "0.8716712482459601`"},
+     {"7000", "0.8797387131848944`"},
+     {"7500", "0.8868518300217569`"},
+     {"8000", "0.8931704868012851`"},
+     {"8500", "0.8988207441981599`"},
+     {"9000", "0.9039033322332566`"},
+     {"9500", "0.9084997084329903`"},
+     {"10000", "0.9126764566759962`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxDividers->{
+     "Columns" -> {{False}}, "ColumnsIndexed" -> {}, 
+      "Rows" -> {False, True, {False}, False}, "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   {None, OutputFormsDump`HeadedColumns}],
+  Function[BoxForm`e$, 
+   TableForm[
+   BoxForm`e$, 
+    TableHeadings -> {None, {"V2", "\[CapitalGamma]2/Keq2"}}]]]], "Output",
+ CellChangeTimes->{
+  3.474546890183113*^9, 3.474546972402334*^9, {3.474547007976699*^9, 
+   3.474547021445977*^9}, {3.474547061595418*^9, 3.474547088048066*^9}, {
+   3.474547154208197*^9, 3.47454716870719*^9}, {3.474547607145547*^9, 
+   3.47454766545242*^9}, 3.474547819500722*^9, 3.474547917425502*^9, {
+   3.4745483233514547`*^9, 3.4745483398829*^9}, {3.474548853093652*^9, 
+   3.4745488605269947`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {RGBColor[1, 0, 0], Thickness[0.01], 
+   LineBox[{{5000., 0.839338147011354}, {5500., 0.8517859533955389}, {6000., 
+    0.8624435569585769}, {6500., 0.8716712482459601}, {7000., 
+    0.8797387131848944}, {7500., 0.8868518300217569}, {8000., 
+    0.8931704868012851}, {8500., 0.8988207441981599}, {9000., 
+    0.9039033322332566}, {9500., 0.9084997084329903}, {10000., 
+    0.9126764566759962}}]},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  BaseStyle->{FontFamily -> "Gill Sans Light", FontSize -> 16},
+  Frame->True,
+  FrameLabel->{
+    FormBox["\"maximal rate first enzyme, V2\"", TraditionalForm], 
+    FormBox["\"\[CapitalGamma]2/Keq2\"", TraditionalForm]},
+  PlotRange->{{5000, 10000}, {0, 1}},
+  PlotRangeClipping->True]], "Output",
+ CellChangeTimes->{
+  3.474546890183113*^9, 3.474546972402334*^9, {3.474547007976699*^9, 
+   3.474547021445977*^9}, {3.474547061595418*^9, 3.474547088048066*^9}, {
+   3.474547154208197*^9, 3.47454716870719*^9}, {3.474547607145547*^9, 
+   3.47454766545242*^9}, 3.474547819500722*^9, 3.474547917425502*^9, {
+   3.4745483233514547`*^9, 3.4745483398829*^9}, {3.474548853093652*^9, 
+   3.4745488605396957`*^9}}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["So this shows that V2 equals 8611.5 that this enzyme \
+operates close to thermodynamic equilibrium,",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.4745472231899357`*^9, 3.474547247507023*^9}, {
+  3.474547760073152*^9, 3.4745477694069653`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   FractionBox[
+    RowBox[{"y", "[", "t", "]"}], 
+    RowBox[{
+     RowBox[{"x", "[", "t", "]"}], " ", "Keq2"}]], "/.", "parm2"}], "/.", 
+  RowBox[{"sschange2", "[", 
+   RowBox[{"V2", ",", "8611.5"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.474547198973029*^9, 3.4745472160491056`*^9}, {
+  3.474547676196595*^9, 3.474547754160861*^9}}],
+
+Cell[BoxData["0.9000001974501615`"], "Output",
+ CellChangeTimes->{{3.4745472050271482`*^9, 3.4745472165390587`*^9}, {
+   3.474547677647217*^9, 3.474547771268215*^9}, 3.474547820890205*^9, 
+   3.474547918949704*^9, 3.474548342976235*^9}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["Increasing the Vmax further shifts the enzyme more \
+equilibrium.\n\nHow far are the other enzymes from equilibrium?",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474547251297522*^9, 3.474547305186221*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   FractionBox[
+    RowBox[{"x", "[", "t", "]"}], 
+    RowBox[{"s", " ", "Keq1"}]], "/.", "parm2"}], "/.", 
+  RowBox[{"sschange2", "[", 
+   RowBox[{"V2", ",", "8611.5"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   FractionBox["p", 
+    RowBox[{
+     RowBox[{"y", "[", "t", "]"}], " ", "Keq3"}]], "/.", "parm2"}], "/.", 
+  RowBox[{"sschange2", "[", 
+   RowBox[{"V2", ",", "8611.5"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.474547309441703*^9, 3.4745473266987343`*^9}, {
+  3.474547775362339*^9, 3.47454779536973*^9}}],
+
+Cell[BoxData["0.00001872461378837828`"], "Output",
+ CellChangeTimes->{{3.474547314319627*^9, 3.474547327592314*^9}, 
+   3.474547822295721*^9, 3.474547920347013*^9, 3.474548344598104*^9}],
+
+Cell[BoxData["0.00005933958798312633`"], "Output",
+ CellChangeTimes->{{3.474547314319627*^9, 3.474547327592314*^9}, 
+   3.474547822295721*^9, 3.474547920347013*^9, 3.474548344631524*^9}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["So enzyme 1 is furthest from equilibrium, then enzyme \
+3 and then enzyme 2.",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474547345577732*^9, 3.4745473914052353`*^9}}],
+
+Cell[TextData[{
+ StyleBox["In both models, the following relationship holds;\n",
+  FontSize->16],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     FractionBox["P", 
+      RowBox[{"S", " ", 
+       SubscriptBox["K", "EQ1"], 
+       SubscriptBox["K", "EQ2"], 
+       SubscriptBox["K", "EQ3"]}]], "=", 
+     RowBox[{
+      FractionBox["X", 
+       RowBox[{"S", " ", 
+        SubscriptBox["K", "EQ1"]}]], 
+      FractionBox["Y", 
+       RowBox[{"X", " ", 
+        SubscriptBox["K", "EQ2"]}]], 
+      FractionBox["P", 
+       RowBox[{"Y", " ", 
+        SubscriptBox["K", "EQ3"]}]]}]}],
+    FontSize->24], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n",
+ StyleBox["The models only differ in ",
+  FontSize->16],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    SubscriptBox["K", "EQ2"],
+    FontSize->18], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ StyleBox[".  \n\nThe previous model comparison illustrated that an enzyme \
+with a large equilibrium constant needs a higher Vmax (so more enzyme) to \
+bring it close to equilibrium than an enzyme with a smaller Vmax.  This is a \
+general rule.  Enzymes with small equilibrium constant often function close \
+to thermodynamic equilibrium in metabolic pathways as the Vmax required for \
+their operation close to equilibrium is small, with little enzyme this can \
+achieved.\n\nThe models also differ in their steady state flux.",
+  FontSize->16]
+}], "Text",
+ CellChangeTimes->{{3.474548018773263*^9, 3.474548287506028*^9}, {
+  3.474548409973589*^9, 3.474548489440563*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"rateqs1", "/.", 
+   RowBox[{"parmchange1", "[", 
+    RowBox[{"V2", ",", "140.096"}], "]"}]}], "/.", 
+  RowBox[{"sschange1", "[", 
+   RowBox[{"V2", ",", "140.096"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rateqs2", "/.", 
+   RowBox[{"parmchange2", "[", 
+    RowBox[{"V2", ",", "8611.5"}], "]"}]}], "/.", 
+  RowBox[{"sschange2", "[", 
+   RowBox[{"V2", ",", "8611.5"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.4745482891570883`*^9, 3.47454830215685*^9}, {
+  3.474548372593927*^9, 3.474548406184107*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"v1", "\[Rule]", "6.5591630670752314`"}], ",", 
+   RowBox[{"v2", "\[Rule]", "6.559163067075239`"}], ",", 
+   RowBox[{"v3", "\[Rule]", "6.559163067075231`"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.474548303092443*^9, 3.474548347289833*^9, {3.474548380669038*^9, 
+   3.4745484070917997`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"v1", "\[Rule]", "8.938582945805923`"}], ",", 
+   RowBox[{"v2", "\[Rule]", "8.938582945805921`"}], ",", 
+   RowBox[{"v3", "\[Rule]", "8.938582945805923`"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.474548303092443*^9, 3.474548347289833*^9, {3.474548380669038*^9, 
+   3.474548407110881*^9}}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["The second part of the question asks whether an \
+enzyme close to equilibrium has a large effect on the steady state flux.  The \
+best way to shows it plot the sensitivity coefficient of the flux to the \
+maximal rate of enzyme 2 as function of its displacement from equilbrium.",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.47454851849657*^9, 3.474548592076831*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        FractionBox[
+         RowBox[{"y", "[", "t", "]"}], 
+         RowBox[{
+          RowBox[{"x", "[", "t", "]"}], " ", "Keq2"}]], "/.", 
+        RowBox[{"parmchange1", "[", 
+         RowBox[{"V2", ",", "V2val"}], "]"}]}], "/.", 
+       RowBox[{"sschange1", "[", 
+        RowBox[{"V2", ",", "V2val"}], "]"}]}], ",", 
+      FractionBox[
+       FractionBox[
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"v1", "/.", "rateqs1"}], "/.", 
+            RowBox[{"parmchange1", "[", 
+             RowBox[{"V2", ",", 
+              RowBox[{"1.01", "*", "V2val"}]}], "]"}]}], "/.", 
+           RowBox[{"sschange1", "[", 
+            RowBox[{"V2", ",", 
+             RowBox[{"1.01", "*", "V2val"}]}], "]"}]}], ")"}], "-", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"v1", "/.", "rateqs1"}], "/.", 
+            RowBox[{"parmchange1", "[", 
+             RowBox[{"V2", ",", "V2val"}], "]"}]}], "/.", 
+           RowBox[{"sschange1", "[", 
+            RowBox[{"V2", ",", "V2val"}], "]"}]}], ")"}]}], 
+        RowBox[{
+         RowBox[{
+          RowBox[{"v1", "/.", "rateqs1"}], "/.", 
+          RowBox[{"parmchange1", "[", 
+           RowBox[{"V2", ",", "V2val"}], "]"}]}], "/.", 
+         RowBox[{"sschange1", "[", 
+          RowBox[{"V2", ",", "V2val"}], "]"}]}]], "0.01"]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"V2val", ",", 
+      RowBox[{"{", 
+       RowBox[{
+       "1", ",", "2", ",", "4", ",", "5", ",", "7", ",", "10", ",", "15", ",",
+         "20", ",", "50", ",", "100", ",", "125", ",", "150", ",", "175", ",",
+         "200", ",", "500"}], "}"}]}], "}"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"%", ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Gill Sans Light\>\""}], ",", " ", 
+      
+      RowBox[{"FontSize", "\[Rule]", "16"}]}], "}"}]}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<\[CapitalGamma]2/Keq2\>\"", ",", 
+      "\"\<\!\(\*FractionBox[\(%  J\), \(1  %  Vmax2\)]\)\>\""}], "}"}]}], 
+   ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"Red", ",", 
+       RowBox[{"Thickness", "[", "0.01", "]"}]}], "}"}], "}"}]}], ",", 
+   RowBox[{"PlotLabel", "\[Rule]", "\"\<Model 1\>\""}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.474548602163135*^9, 3.4745486764305058`*^9}, {
+  3.474548707404339*^9, 3.474548974742169*^9}, {3.4745492767483807`*^9, 
+  3.47454928953719*^9}, {3.474549397429433*^9, 3.474549398768211*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {RGBColor[1, 0, 0], Thickness[0.01], 
+   LineBox[{{0.002446361638392159, 0.9772152065102716}, {
+    0.011488498567429152`, 0.9194962678665146}, {0.056169192269199766`, 
+    0.7005879040710952}, {0.08973512239817136, 0.5828988401223184}, {
+    0.1647581454534757, 0.4070873026834565}, {0.27082497453656046`, 
+    0.2659304434597608}, {0.40692880897831984`, 0.16491027758125243`}, {
+    0.5027147212513358, 0.11923157177681841`}, {0.7498312122183336, 
+    0.04507883931960698}, {0.8635243623664384, 0.0222352339322776}, {
+    0.8888104181650931, 0.017747681552987386`}, {0.9061937208432438, 
+    0.01476859716813003}, {0.9188775739841415, 0.012646444941496051`}, {
+    0.928540435670111, 0.011057819881697075`}, {0.9705872070586123, 
+    0.004411097605071161}}]},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  BaseStyle->{FontFamily -> "Gill Sans Light", FontSize -> 16},
+  Frame->True,
+  FrameLabel->{
+    FormBox["\"\[CapitalGamma]2/Keq2\"", TraditionalForm], 
+    FormBox[
+    "\"\\!\\(\\*FractionBox[\\(%  J\\), \\(1  %  Vmax2\\)]\\)\"", 
+     TraditionalForm]},
+  PlotLabel->FormBox["\"Model 1\"", TraditionalForm],
+  PlotRange->{{0, 1}, {0, 1}},
+  PlotRangeClipping->True]], "Output",
+ CellChangeTimes->{{3.474548661113695*^9, 3.474548678200325*^9}, 
+   3.474548720112957*^9, {3.474548766381098*^9, 3.474548793728772*^9}, 
+   3.4745488345527782`*^9, {3.474548917344728*^9, 3.474548976710764*^9}, {
+   3.474549278777485*^9, 3.474549292061377*^9}, 3.474549400937312*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        FractionBox[
+         RowBox[{"y", "[", "t", "]"}], 
+         RowBox[{
+          RowBox[{"x", "[", "t", "]"}], " ", "Keq2"}]], "/.", 
+        RowBox[{"parmchange2", "[", 
+         RowBox[{"V2", ",", "V2val"}], "]"}]}], "/.", 
+       RowBox[{"sschange2", "[", 
+        RowBox[{"V2", ",", "V2val"}], "]"}]}], ",", 
+      FractionBox[
+       FractionBox[
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"v1", "/.", "rateqs2"}], "/.", 
+            RowBox[{"parmchange2", "[", 
+             RowBox[{"V2", ",", 
+              RowBox[{"1.01", "*", "V2val"}]}], "]"}]}], "/.", 
+           RowBox[{"sschange2", "[", 
+            RowBox[{"V2", ",", 
+             RowBox[{"1.01", "*", "V2val"}]}], "]"}]}], ")"}], "-", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"v1", "/.", "rateqs2"}], "/.", 
+            RowBox[{"parmchange2", "[", 
+             RowBox[{"V2", ",", "V2val"}], "]"}]}], "/.", 
+           RowBox[{"sschange2", "[", 
+            RowBox[{"V2", ",", "V2val"}], "]"}]}], ")"}]}], 
+        RowBox[{
+         RowBox[{
+          RowBox[{"v1", "/.", "rateqs2"}], "/.", 
+          RowBox[{"parmchange2", "[", 
+           RowBox[{"V2", ",", "V2val"}], "]"}]}], "/.", 
+         RowBox[{"sschange2", "[", 
+          RowBox[{"V2", ",", "V2val"}], "]"}]}]], "0.01"]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"V2val", ",", 
+      RowBox[{"{", 
+       RowBox[{
+       "5", ",", "10", ",", "20", ",", "50", ",", "100", ",", "1000", ",", 
+        "2500", ",", "5000", ",", "7500", ",", "8000", ",", "8250", ",", 
+        "8500", ",", "8550", ",", "8600", ",", "8650", ",", "8700", ",", 
+        "9000", ",", "10000", ",", "15000", ",", "20000"}], "}"}]}], "}"}]}], 
+   "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"%", ",", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"Frame", "\[Rule]", "True"}], ",", 
+   RowBox[{"BaseStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FontFamily", "\[Rule]", "\"\<Gill Sans Light\>\""}], ",", " ", 
+      
+      RowBox[{"FontSize", "\[Rule]", "16"}]}], "}"}]}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<\[CapitalGamma]2/Keq2\>\"", ",", 
+      "\"\<\!\(\*FractionBox[\(%  J\), \(1  %  Vmax2\)]\)\>\""}], "}"}]}], 
+   ",", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"Red", ",", 
+       RowBox[{"Thickness", "[", "0.01", "]"}]}], "}"}], "}"}]}], ",", 
+   RowBox[{"PlotLabel", "\[Rule]", "\"\<Model 2\>\""}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.474548602163135*^9, 3.4745486764305058`*^9}, {
+  3.474548707404339*^9, 3.474548974742169*^9}, {3.4745490072396917`*^9, 
+  3.4745491097644987`*^9}, {3.474549145084702*^9, 3.474549265420643*^9}, {
+  3.4745493820497503`*^9, 3.474549389473658*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"FindRoot", "::", "\<\"lstol\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"The line search decreased \
+the step size to within tolerance specified by AccuracyGoal and PrecisionGoal \
+but was unable to find a sufficient decrease in the merit function. You may \
+need more than \\\\\\\"\\\", \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\(MachinePrecision\\), \\\"MT\\\
+\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" digits of working precision to \
+meet these tolerances.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/FindRoot/lstol\\\", ButtonNote -> \
+\\\"FindRoot::lstol\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.474549171258716*^9, 3.474549266471603*^9}, 
+   3.474549299198904*^9, 3.474549390428832*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"FindRoot", "::", "\<\"lstol\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"The line search decreased \
+the step size to within tolerance specified by AccuracyGoal and PrecisionGoal \
+but was unable to find a sufficient decrease in the merit function. You may \
+need more than \\\\\\\"\\\", \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\(MachinePrecision\\), \\\"MT\\\
+\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" digits of working precision to \
+meet these tolerances.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/FindRoot/lstol\\\", ButtonNote -> \
+\\\"FindRoot::lstol\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.474549171258716*^9, 3.474549266471603*^9}, 
+   3.474549299198904*^9, 3.474549390481359*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"FindRoot", "::", "\<\"lstol\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"The line search decreased \
+the step size to within tolerance specified by AccuracyGoal and PrecisionGoal \
+but was unable to find a sufficient decrease in the merit function. You may \
+need more than \\\\\\\"\\\", \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\(MachinePrecision\\), \\\"MT\\\
+\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" digits of working precision to \
+meet these tolerances.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/FindRoot/lstol\\\", ButtonNote -> \
+\\\"FindRoot::lstol\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.474549171258716*^9, 3.474549266471603*^9}, 
+   3.474549299198904*^9, 3.474549390526436*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"stop\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Further output of \\\\\\\"\\\
+\", \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\(FindRoot :: \\\"lstol\\\"\
+\\), \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" will be \
+suppressed during this calculation.\\\\\\\"\\\", \\\"MT\\\"]\\) \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/stop\\\", \
+ButtonNote -> \\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.474549171258716*^9, 3.474549266471603*^9}, 
+   3.474549299198904*^9, 3.4745493905298*^9}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {RGBColor[1, 0, 0], Thickness[0.01], LineBox[CompressedData["
+1:eJwBUQGu/iFib1JlAgAAABQAAAACAAAA1NWtCuN9Uj/A+rjkarzlP8i6lk09
+m3Q/sr4nVKmp1T9SoLAsv3GOP+MgtYXyCsY/5FOVfDPVpj+teGu0xli2Pyh/
+xeuKJrc/ZiKhJ3OdrD+CI5VuL1TgP/BI8ia/nYU/ln4pIwoj5z8pwVfOcyBz
+P0Fedqzb2+o/7X4nXKnhYz8W68oWF2HsP/FMFw8Y31o/oAvSRdqU7D8bLeSG
+STxZP0NYYu+frOw/AbdCtnJ9WD/yhKm4I8PsP4MZ2lOQyVc/cnG/FoDH7D+i
+BbOl0aZXP7acV8XQy+w/40Pk63eEVz/m0ivzFdDsP2SNzHCBYlc/4Qv+zU/U
+7D+hA5OI7EBXPwj+Va7G7Ow/uSUkIRd/Vj8CFahBpTTtPxMTnm48S1Q/Sh4r
+N9gU7j8XCCb84D9LPzsQQp4Liu4/cXbzuYmCRD/Bq5yH
+    "]]},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  BaseStyle->{FontFamily -> "Gill Sans Light", FontSize -> 16},
+  Frame->True,
+  FrameLabel->{
+    FormBox["\"\[CapitalGamma]2/Keq2\"", TraditionalForm], 
+    FormBox[
+    "\"\\!\\(\\*FractionBox[\\(%  J\\), \\(1  %  Vmax2\\)]\\)\"", 
+     TraditionalForm]},
+  PlotLabel->FormBox["\"Model 2\"", TraditionalForm],
+  PlotRange->{{0, 1}, {0, 1}},
+  PlotRangeClipping->True]], "Output",
+ CellChangeTimes->{{3.474549148418466*^9, 3.474549268097073*^9}, 
+   3.474549300818619*^9, 3.474549392067675*^9}]
+}, Open  ]],
+
+Cell[TextData[StyleBox["So when an enzyme is close to thermodynamic \
+equilibrium it has less effect on the steady state flux! Changes in the level \
+of such an enzyme have little effect on the value of the steady state flux! \
+Again this is a general rule.",
+ FontSize->16]], "Text",
+ CellChangeTimes->{{3.474549325641384*^9, 3.474549368998534*^9}, {
+  3.474549416882039*^9, 3.474549422820435*^9}}]
+},
+WindowSize->{1280, 752},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 124, 2, 30, "Text"],
+Cell[672, 24, 3839, 105, 329, "Input"],
+Cell[4514, 131, 168, 2, 30, "Text"],
+Cell[4685, 135, 597, 15, 27, "Input"],
+Cell[5285, 152, 594, 16, 27, "Input"],
+Cell[5882, 170, 1462, 42, 43, "Input"],
+Cell[CellGroupData[{
+Cell[7369, 216, 1874, 54, 97, "Input"],
+Cell[9246, 272, 2217, 60, 509, "Output"],
+Cell[11466, 334, 1196, 25, 256, "Output"]
+}, Open  ]],
+Cell[12677, 362, 270, 4, 49, "Text"],
+Cell[CellGroupData[{
+Cell[12972, 370, 373, 10, 49, "Input"],
+Cell[13348, 382, 166, 2, 27, "Output"]
+}, Open  ]],
+Cell[13529, 387, 233, 3, 68, "Text"],
+Cell[CellGroupData[{
+Cell[13787, 394, 624, 17, 86, "Input"],
+Cell[14414, 413, 164, 2, 27, "Output"],
+Cell[14581, 417, 163, 2, 27, "Output"]
+}, Open  ]],
+Cell[14759, 422, 195, 3, 30, "Text"],
+Cell[14957, 427, 483, 11, 106, "Text"],
+Cell[15443, 440, 3890, 106, 329, "Input"],
+Cell[19336, 548, 168, 2, 30, "Text"],
+Cell[19507, 552, 649, 16, 27, "Input"],
+Cell[20159, 570, 642, 17, 27, "Input"],
+Cell[20804, 589, 1561, 43, 43, "Input"],
+Cell[CellGroupData[{
+Cell[22390, 636, 1938, 55, 97, "Input"],
+Cell[24331, 693, 1706, 44, 217, "Output"],
+Cell[26040, 739, 1208, 24, 250, "Output"]
+}, Open  ]],
+Cell[27263, 766, 269, 4, 30, "Text"],
+Cell[CellGroupData[{
+Cell[27557, 774, 372, 10, 49, "Input"],
+Cell[27932, 786, 236, 3, 27, "Output"]
+}, Open  ]],
+Cell[28183, 792, 233, 3, 68, "Text"],
+Cell[CellGroupData[{
+Cell[28441, 799, 568, 16, 86, "Input"],
+Cell[29012, 817, 186, 2, 27, "Output"],
+Cell[29201, 821, 186, 2, 27, "Output"]
+}, Open  ]],
+Cell[29402, 826, 195, 3, 30, "Text"],
+Cell[29600, 831, 1539, 43, 207, "Text"],
+Cell[CellGroupData[{
+Cell[31164, 878, 553, 14, 43, "Input"],
+Cell[31720, 894, 347, 8, 27, "Output"],
+Cell[32070, 904, 344, 8, 27, "Output"]
+}, Open  ]],
+Cell[32429, 915, 394, 5, 49, "Text"],
+Cell[CellGroupData[{
+Cell[32848, 924, 3052, 83, 151, "Input"],
+Cell[35903, 1009, 1533, 29, 267, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37473, 1043, 3203, 85, 151, "Input"],
+Cell[40679, 1130, 893, 15, 58, "Message"],
+Cell[41575, 1147, 893, 15, 58, "Message"],
+Cell[42471, 1164, 893, 15, 58, "Message"],
+Cell[43367, 1181, 701, 12, 23, "Message"],
+Cell[44071, 1195, 1147, 25, 267, "Output"]
+}, Open  ]],
+Cell[45233, 1223, 399, 6, 49, "Text"]
+}
+]
+*)
+
+(* End of internal cache information *)

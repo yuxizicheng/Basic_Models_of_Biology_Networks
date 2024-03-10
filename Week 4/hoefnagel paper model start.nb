@@ -1,0 +1,590 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     23260,        582]
+NotebookOptionsPosition[     22911,        568]
+NotebookOutlinePosition[     23304,        584]
+CellTagsIndexPosition[     23261,        581]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"rateqs", "=", 
+    RowBox[{"{", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"vGLYC", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpGLYC", "*", 
+         RowBox[{"(", 
+          FractionBox["GLC", "Km1GLC"], ")"}], "  ", 
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"NAD", "[", "t", "]"}], "Km1NAD"], ")"}], " ", 
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"ADP", "[", "t", "]"}], "Km1ADP"], ")"}]}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox["GLC", "Km1GLC"], "+", 
+           FractionBox[
+            RowBox[{"PYR", "[", "t", "]"}], "Km1PYR"]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"NAD", "[", "t", "]"}], "Km1NAD"], "+", 
+           FractionBox[
+            RowBox[{"NADH", "[", "t", "]"}], "Km1NADH"]}], ")"}], " ", 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"ADP", "[", "t", "]"}], "Km1ADP"], "+", 
+           FractionBox[
+            RowBox[{"ATP", "[", "t", "]"}], "Km1ATP"]}], ")"}]}]]}], ",", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"vLDH", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpLDH", "*", 
+         RowBox[{"(", 
+          FractionBox["1", 
+           RowBox[{"Km2PYR", " ", "Km2NADH"}]], ")"}], "  ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"PYR", "[", "t", "]"}], " ", 
+            RowBox[{"NADH", "[", "t", "]"}]}], "-", 
+           FractionBox[
+            RowBox[{"LAC", " ", 
+             RowBox[{"NAD", "[", "t", "]"}], " "}], "Keq2LDH"]}], ")"}], 
+         " "}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"PYR", "[", "t", "]"}], "Km2PYR"], "+", 
+           FractionBox["LAC", "Km2LAC"]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"NAD", "[", "t", "]"}], "Km2NAD"], "+", 
+           FractionBox[
+            RowBox[{"NADH", "[", "t", "]"}], "Km2NADH"]}], ")"}]}]]}], ",", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"vPDH", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpPDH", "*", 
+         RowBox[{"(", 
+          FractionBox["1", 
+           RowBox[{"1", "+", 
+            RowBox[{"Ki3PDH", 
+             FractionBox[
+              RowBox[{"NADH", "[", "t", "]"}], 
+              RowBox[{"NAD", "[", "t", "]"}]]}]}]], ")"}], "  ", 
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"PYR", "[", "t", "]"}], "Km3PYR"], ")"}], " ", 
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"NAD", "[", "t", "]"}], "Km3NAD"], ")"}], 
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"COA", "[", "t", "]"}], "Km3COA"], ")"}]}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"PYR", "[", "t", "]"}], "Km3PYR"]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"NAD", "[", "t", "]"}], "Km3NAD"], "+", 
+           FractionBox[
+            RowBox[{"NADH", "[", "t", "]"}], "Km3NADH"]}], ")"}], " ", 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"COA", "[", "t", "]"}], "Km3COA"], "+", 
+           FractionBox[
+            RowBox[{"ACCOA", "[", "t", "]"}], "Km3ACCOA"]}], ")"}]}]]}], ",", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"vPTA", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpPTA", "*", 
+         RowBox[{"(", 
+          FractionBox["1", 
+           RowBox[{"Ki4ACCOA", " ", "Km4P"}]], ")"}], "  ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"ACCOA", "[", "t", "]"}], " ", "P"}], "-", " ", 
+           FractionBox[
+            RowBox[{
+             RowBox[{"ACP", "[", "t", "]"}], " ", 
+             RowBox[{"COA", "[", "t", "]"}]}], "Keq4PTA"]}], ")"}]}], 
+        RowBox[{"(", 
+         RowBox[{"1", "+", 
+          FractionBox[
+           RowBox[{"ACCOA", "[", "t", "]"}], "Ki4ACCOA"], "+", 
+          FractionBox["P", "Ki4P"], "+", 
+          FractionBox[
+           RowBox[{"ACP", "[", "t", "]"}], "Ki4ACP"], "+", 
+          FractionBox[
+           RowBox[{"COA", "[", "t", "]"}], "Ki4COA"], "+", 
+          FractionBox[
+           RowBox[{
+            RowBox[{"ACCOA", "[", "t", "]"}], " ", "P"}], 
+           RowBox[{"Ki4ACCOA", " ", "Km4P"}]], "+", 
+          FractionBox[
+           RowBox[{
+            RowBox[{"ACP", "[", "t", "]"}], " ", 
+            RowBox[{"COA", "[", "t", "]"}]}], 
+           RowBox[{"Km4ACP", " ", "Ki4COA"}]]}], ")"}]]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"vACK", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpACK", "*", 
+         RowBox[{"(", 
+          FractionBox["1", 
+           RowBox[{"Km5ADP", " ", "Km5ACP"}]], ")"}], "  ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"ACP", "[", "t", "]"}], " ", 
+            RowBox[{"ADP", "[", "t", "]"}]}], " ", "-", " ", 
+           FractionBox[
+            RowBox[{"AC", " ", 
+             RowBox[{"ATP", "[", "t", "]"}]}], "Keq5ACK"]}], ")"}], " "}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"ACP", "[", "t", "]"}], "Km5ACP"], "+", 
+           FractionBox["AC", "Km5AC"]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"ADP", "[", "t", "]"}], "Km5ADP"], "+", 
+           FractionBox[
+            RowBox[{"ATP", "[", "t", "]"}], "Km5ATP"]}], ")"}], " "}]]}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{"vACALDH", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpACALDH", "*", 
+         RowBox[{"(", 
+          FractionBox["1", 
+           RowBox[{"Km6ACCOA", " ", "Km6NADH"}]], ")"}], "  ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"ACCOA", "[", "t", "]"}], " ", 
+            RowBox[{"NADH", "[", "t", "]"}]}], " ", "-", " ", 
+           FractionBox[
+            RowBox[{
+             RowBox[{"COA", "[", "t", "]"}], 
+             RowBox[{"NAD", "[", "t", "]"}], 
+             RowBox[{"ACAL", "[", "t", "]"}]}], "Keq6ACALDH"]}], ")"}], " "}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"NAD", "[", "t", "]"}], "Km6NAD"], "+", 
+           FractionBox[
+            RowBox[{"NADH", "[", "t", "]"}], "Km6NADH"]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"ACCOA", "[", "t", "]"}], "Km6ACCOA"], "+", 
+           FractionBox[
+            RowBox[{"COA", "[", "t", "]"}], "Km6COA"]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"ACAL", "[", "t", "]"}], "Km6ACAL"]}], ")"}], " "}]]}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{"vADH", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpADH", "*", 
+         RowBox[{"(", 
+          FractionBox["1", 
+           RowBox[{"Km7ACAL", " ", "Km7NADH"}]], ")"}], "  ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"ACAL", "[", "t", "]"}], " ", 
+            RowBox[{"NADH", "[", "t", "]"}]}], " ", "-", " ", 
+           FractionBox[
+            RowBox[{"ETOH", " ", 
+             RowBox[{"NAD", "[", "t", "]"}]}], "Keq7ADH"]}], ")"}], " "}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"NAD", "[", "t", "]"}], "Km7NAD"], "+", 
+           FractionBox[
+            RowBox[{"NADH", "[", "t", "]"}], "Km7NADH"]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"ACAL", "[", "t", "]"}], "Km7ACAL"], "+", 
+           FractionBox["ETOH", "Km7ETOH"]}], ")"}], " "}]]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"vALS", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpALS", "*", 
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"PYR", "[", "t", "]"}], "Km8PYR"], ")"}], "  ", 
+         RowBox[{"(", 
+          RowBox[{"1", "-", 
+           FractionBox[
+            RowBox[{"ACLAC", "[", "t", "]"}], 
+            RowBox[{
+             RowBox[{"PYR", "[", "t", "]"}], " ", "Keq8ALS"}]]}], ")"}], 
+         SuperscriptBox[
+          RowBox[{"(", " ", 
+           RowBox[{
+            FractionBox[
+             RowBox[{"PYR", "[", "t", "]"}], "Km8PYR"], "+", 
+            FractionBox[
+             RowBox[{"ACLAC", "[", "t", "]"}], "Km8ACLAC"]}], ")"}], 
+          RowBox[{"N8", "-", "1"}]], " "}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{
+              FractionBox[
+               RowBox[{"PYR", "[", "t", "]"}], "Km8PYR"], "+", 
+              FractionBox[
+               RowBox[{"ACLAC", "[", "t", "]"}], "Km8ACLAC"]}], ")"}], 
+            "N8"]}], ")"}], " "}]]}], ",", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"vALDC", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpALDC", "*", 
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"ACLAC", "[", "t", "]"}], "Km9ACLAC"], ")"}], " "}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"ACLAC", "[", "t", "]"}], "Km9ACLAC"], "+", 
+           FractionBox[
+            RowBox[{"ACET", "[", "t", "]"}], "Km9ACET"]}], ")"}], " "}]]}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{"vACETEFF", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpACETEFF", "*", 
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{"ACET", "[", "t", "]"}], "Km10ACET"], ")"}], " "}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"ACET", "[", "t", "]"}], "Km10ACET"]}], ")"}], " "}]]}], 
+      ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"vACETDH", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpACETDH", "*", 
+         RowBox[{"(", 
+          FractionBox["1", 
+           RowBox[{"Km11ACET", " ", "Km11NADH"}]], ")"}], "  ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"ACET", "[", "t", "]"}], " ", 
+            RowBox[{"NADH", "[", "t", "]"}]}], " ", "-", " ", 
+           FractionBox[
+            RowBox[{"BUT", " ", 
+             RowBox[{"NAD", "[", "t", "]"}]}], "Keq11ACETDH"]}], ")"}], " "}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"ACET", "[", "t", "]"}], "Km11ACET"], "+", 
+           FractionBox["BUT", "Km11BUT"]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"NADH", "[", "t", "]"}], "Km11NADH"], "+", 
+           FractionBox[
+            RowBox[{"NAD", "[", "t", "]"}], "Km11NAD"]}], ")"}], " "}]]}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{"vATPASE", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpATPASE", "*", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           FractionBox[
+            RowBox[{"ATP", "[", "t", "]"}], 
+            RowBox[{
+             RowBox[{"ADP", "[", "t", "]"}], " "}]], ")"}], "N12"], "  "}], 
+        RowBox[{
+         SuperscriptBox["Km12ATP", "N12"], "+", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           FractionBox[
+            RowBox[{"ATP", "[", "t", "]"}], 
+            RowBox[{"ADP", "[", "t", "]"}]], ")"}], "N12"], " "}]]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"vNOX", "\[Rule]", " ", 
+       FractionBox[
+        RowBox[{"VmaxpNOX", "*", 
+         RowBox[{"(", 
+          FractionBox[
+           RowBox[{
+            RowBox[{"NADH", "[", "t", "]"}], " ", "O1"}], 
+           RowBox[{"Km13NADH", "  ", "Km13O1"}]], ")"}], "  "}], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox[
+            RowBox[{"NADH", "[", "t", "]"}], "Km13NADH"], "+", 
+           FractionBox[
+            RowBox[{"NAD", "[", "t", "]"}], "Km13NAD"]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{"1", "+", 
+           FractionBox["O1", "Km13O1"]}], ")"}], " "}]]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"vNEALC", "\[Rule]", " ", 
+       RowBox[{"k14", " ", 
+        RowBox[{"ACLAC", "[", "t", "]"}]}]}]}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"parm", "=", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{"enzyme", " ", "1"}], " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"VmaxpGLYC", "\[Rule]", "2397"}], ",", 
+      RowBox[{"Km1PYR", "\[Rule]", "2.5"}], ",", 
+      RowBox[{"Km1GLC", "\[Rule]", "0.1"}], ",", 
+      RowBox[{"Km1NAD", "\[Rule]", "0.1412"}], ",", " ", 
+      RowBox[{"Km1NADH", "\[Rule]", " ", "0.09"}], ",", " ", 
+      RowBox[{"Km1ADP", "\[Rule]", " ", "0.047"}], ",", " ", 
+      RowBox[{"Km1ATP", " ", "\[Rule]", " ", "0.019"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "2"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpLDH", "\[Rule]", "5118"}], ",", 
+      RowBox[{"Keq2LDH", "\[Rule]", "21120.7"}], ",", 
+      RowBox[{"Km2NADH", "\[Rule]", "0.08"}], ",", 
+      RowBox[{"Km2PYR", "\[Rule]", "1.5"}], ",", 
+      RowBox[{"Km2NAD", "\[Rule]", " ", "2.4"}], ",", 
+      RowBox[{"Km2LAC", " ", "\[Rule]", " ", "100"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "3"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpPDH", " ", "\[Rule]", " ", "259"}], ",", " ", 
+      RowBox[{"Km3PYR", "\[Rule]", "1"}], ",", 
+      RowBox[{"Km3NAD", "\[Rule]", "0.4"}], ",", 
+      RowBox[{"Km3COA", " ", "\[Rule]", " ", "0.014"}], ",", 
+      RowBox[{"Km3ACCOA", "\[Rule]", "0.008"}], ",", " ", 
+      RowBox[{"Km3NADH", "\[Rule]", "0.1"}], ",", 
+      RowBox[{"Ki3PDH", "\[Rule]", "46.4"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "4"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpPTA", "\[Rule]", "42"}], ",", 
+      RowBox[{"Ki4ACCOA", "\[Rule]", "0.2"}], ",", 
+      RowBox[{"Km4P", "\[Rule]", "2.6"}], ",", 
+      RowBox[{"Ki4P", "\[Rule]", "2.6"}], ",", 
+      RowBox[{"Km4ACP", " ", "\[Rule]", " ", "0.7"}], ",", 
+      RowBox[{"Ki4ACP", "\[Rule]", " ", "0.2"}], ",", " ", 
+      RowBox[{"Ki4COA", " ", "\[Rule]", " ", "0.029"}], ",", " ", 
+      RowBox[{"Km4COA", " ", "\[Rule]", " ", "0.12"}], ",", " ", 
+      RowBox[{"Keq4PTA", " ", "\[Rule]", " ", "0.0065"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "5"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpACK", "\[Rule]", "2700"}], ",", 
+      RowBox[{"Km5ACP", "\[Rule]", "0.16"}], ",", 
+      RowBox[{"Km5ADP", "\[Rule]", "0.5"}], ",", 
+      RowBox[{"Km5AC", "\[Rule]", "7"}], ",", 
+      RowBox[{"Km5ATP", "\[Rule]", "0.07"}], ",", 
+      RowBox[{"Keq5ACK", "\[Rule]", " ", "174.217"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "6"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpACALDH", "\[Rule]", "97"}], ",", 
+      RowBox[{"Km6ACCOA", "\[Rule]", "0.007"}], ",", 
+      RowBox[{"Km6NADH", "\[Rule]", "0.025"}], ",", 
+      RowBox[{"Km6NAD", "\[Rule]", "0.08"}], ",", 
+      RowBox[{"Km6COA", "\[Rule]", " ", "0.008"}], ",", 
+      RowBox[{"Km6ACAL", " ", "\[Rule]", " ", "10"}], ",", 
+      RowBox[{"Keq6ACALDH", " ", "\[Rule]", " ", "1"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "7"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpADH", "\[Rule]", "162"}], ",", 
+      RowBox[{"Km7ACAL", "\[Rule]", "0.03"}], ",", 
+      RowBox[{"Km7NADH", "\[Rule]", "0.05"}], ",", 
+      RowBox[{"Km7NAD", "\[Rule]", "0.08"}], ",", 
+      RowBox[{"Km7ETOH", "\[Rule]", " ", "1"}], ",", 
+      RowBox[{"Keq7ADH", " ", "\[Rule]", " ", "12354.9"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "8"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpALS", "\[Rule]", " ", "600"}], ",", " ", 
+      RowBox[{"Km8PYR", " ", "\[Rule]", "50"}], ",", " ", 
+      RowBox[{"N8", "\[Rule]", " ", "2.4"}], ",", 
+      RowBox[{"Km8ACLAC", " ", "\[Rule]", " ", "100"}], ",", " ", 
+      RowBox[{"Keq8ALS", " ", "\[Rule]", " ", 
+       RowBox[{"9", "*", 
+        SuperscriptBox["10", "12"]}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "9"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpALDC", "\[Rule]", "106"}], ",", 
+      RowBox[{"Km9ACLAC", "\[Rule]", "10"}], ",", 
+      RowBox[{"Km9ACET", "\[Rule]", "100"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "10"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpACETEFF", "\[Rule]", " ", "200"}], ",", 
+      RowBox[{"Km10ACET", " ", "\[Rule]", " ", "5"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "10"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpACETDH", " ", "\[Rule]", " ", "105"}], ",", " ", 
+      RowBox[{"Km11ACET", "\[Rule]", "0.06"}], ",", " ", 
+      RowBox[{"Km11NADH", "\[Rule]", "0.02"}], ",", 
+      RowBox[{"Keq11ACETDH", " ", "\[Rule]", " ", "1400"}], ",", 
+      RowBox[{"Km11BUT", "\[Rule]", " ", "2.6"}], ",", 
+      RowBox[{"Km11NAD", "\[Rule]", "0.16"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "12"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpATPASE", " ", "\[Rule]", "900"}], ",", " ", 
+      RowBox[{"Km12ATP", "\[Rule]", "6.2"}], ",", " ", 
+      RowBox[{"N12", "\[Rule]", "  ", "2.6"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "13"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"VmaxpNOX", " ", "\[Rule]", " ", "118"}], ",", " ", 
+      RowBox[{"Km13NADH", "\[Rule]", "0.041"}], ",", 
+      RowBox[{"Km13NAD", "\[Rule]", "1.0"}], ",", 
+      RowBox[{"Km13O1", "\[Rule]", " ", "0.2"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"enzyme", " ", "14"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"k14", "\[Rule]", " ", "0.0003"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", "constants", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"GLC", " ", "\[Rule]", " ", "15"}], ",", 
+      RowBox[{"LAC", " ", "\[Rule]", " ", "0.1"}], ",", 
+      RowBox[{"BUT", "\[Rule]", " ", "0.01"}], ",", 
+      RowBox[{"ETOH", "\[Rule]", "0.1"}], ",", " ", 
+      RowBox[{"O1", "\[Rule]", " ", "0.2"}], ",", " ", 
+      RowBox[{"P", "\[Rule]", " ", "10"}], ",", " ", 
+      RowBox[{"AC", "\[Rule]", "0.01"}]}], "\[IndentingNewLine]", "}"}]}], 
+   ";"}], "  ", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"odes", "=", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"PYR", "'"}], "[", "t", "]"}], "==", 
+       RowBox[{"vGLYC", "-", "vLDH", "-", "vPDH", "-", 
+        RowBox[{"2", "*", "vALS"}]}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ACP", "'"}], "[", "t", "]"}], "==", 
+       RowBox[{"vPTA", "-", "vACK"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ACAL", "'"}], "[", "t", "]"}], "==", 
+       RowBox[{"vACALDH", "-", "vADH"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ACLAC", "'"}], "[", "t", "]"}], "==", 
+       RowBox[{"vALS", "-", "vALDC", "-", "vNEALC"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ACET", "'"}], "[", "t", "]"}], "==", 
+       RowBox[{"vALDC", "+", "vNEALC", "-", "vACETDH", "-", "vACETEFF"}]}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ATP", "'"}], "[", "t", "]"}], "==", 
+       RowBox[{"vGLYC", "+", "vACK", "-", "vATPase"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ADP", "[", "t", "]"}], "+", 
+        RowBox[{"ATP", "[", "t", "]"}]}], "==", "5"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"NADH", "'"}], "[", "t", "]"}], "=", 
+       RowBox[{
+       "vGLYC", "+", "vPDH", "-", "vLDH", "-", "vACALDH", "-", "vADH", "-", 
+        "vACETDH", "-", "vNOX"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"NAD", "[", "t", "]"}], "+", 
+        RowBox[{"NADH", "[", "t", "]"}]}], "==", "10"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ACCOA", "'"}], "[", "t", "]"}], "==", 
+       RowBox[{"vPDH", "-", "vACALDH", "-", "vPTA"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"COA", "[", "t", "]"}], "+", 
+        RowBox[{"ACCOA", "[", "t", "]"}]}], "==", "1"}]}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Vars", "=", 
+  RowBox[{"{", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"tsol", "=", 
+    RowBox[{"NDSolve", "[", 
+     RowBox[{
+      RowBox[{"Join", "[", 
+       RowBox[{
+        RowBox[{"odes", "/.", "rateqs"}], "/.", "parm"}], "]"}], "\:ff0c"}], 
+     "]"}], "\[IndentingNewLine]"}]}]}]}], "Input",
+ CellChangeTimes->{{3.878370432048674*^9, 3.8783704502658463`*^9}, {
+  3.8783704893602037`*^9, 3.8783705776020184`*^9}, {3.878370631922559*^9, 
+  3.878370653371273*^9}, {3.878370689576426*^9, 3.8783710192537203`*^9}, {
+  3.878371112004632*^9, 3.8783713839634447`*^9}, {3.878371732619463*^9, 
+  3.878371752940318*^9}, {3.878371829781196*^9, 3.878371955604539*^9}, {
+  3.8783722909651537`*^9, 3.878372329890872*^9}, {3.878372967683395*^9, 
+  3.8783729703320427`*^9}, {3.878373088275641*^9, 
+  3.878373105337431*^9}},ExpressionUUID->"bd0fc0dc-2da6-4b4b-8c19-\
+f61d6c0fbf5e"]
+},
+WindowSize->{808, 747},
+WindowMargins->{{Automatic, 145}, {0, Automatic}},
+FrontEndVersion->"13.1 for Mac OS X ARM (64-bit) (June 16, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"cc710395-bb94-433c-b8d1-6440d942eab1"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 22349, 546, 2393, "Input",ExpressionUUID->"bd0fc0dc-2da6-4b4b-8c19-f61d6c0fbf5e"]
+}
+]
+*)
+
